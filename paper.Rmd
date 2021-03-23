@@ -156,18 +156,6 @@ nice <- function(x) prettyNum(x, big.mark = ",", scientific = FALSE)
 
 ```
 
-```{r load_gdoc, include = FALSE, eval = TRUE}
-
-googledrive::drive_download(file = "NatureMedicine Covid vaccine hesitancy", 
-                            path = "4_paper_supplementary_files/Intro Vaccine.txt", overwrite = TRUE)
-
-file.rename(from = "4_paper_supplementary_files/Intro Vaccine.txt", 
-            to = "4_paper_supplementary_files/temp_download.Rmd")
-
-knitr::opts_chunk$set(echo = FALSE)
-
-```
-
 
 ```{r main_text, child = "4_paper_supplementary_files/temp_download.Rmd"}
 

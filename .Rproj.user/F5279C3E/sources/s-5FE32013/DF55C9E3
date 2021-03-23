@@ -3,9 +3,9 @@
     "path": "~/Documents/GitHub/covid_vaccines_nmed/paper.Rmd",
     "project_path": "paper.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "1612096777",
     "contents": "",
-    "dirty": false,
+    "dirty": true,
     "created": 1616516913529.0,
     "source_on_save": false,
     "relative_order": 3,
@@ -14,7 +14,7 @@
         "Source": "Source",
         "cursorPosition": "1,116",
         "scrollLine": "0",
-        "last_setup_crc32": "2A4E44D0ba542050"
+        "last_setup_crc32": ""
     },
     "folds": "",
     "lastKnownWriteTime": 1616517000,

@@ -1,0 +1,4 @@
+"0","load(""../02_country_data/rus/russia_vaccine_full.rdata"")
+"
+"2","Error in readChar(con, 5L, useBytes = TRUE) : cannot open the connection
+"

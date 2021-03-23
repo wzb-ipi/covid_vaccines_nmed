@@ -1,4 +1,4 @@
-﻿<!-- COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries, and Implications for Messaging -->
+<!-- COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries, and Implications for Messaging -->
 
 
 
@@ -237,7 +237,7 @@ nocite: '@*'
 
 
 \newpage
-```{r otherv}
+```{r otherv, echo=FALSE}
 tab_1b
 ```
 
@@ -255,7 +255,7 @@ fig_1
 ```
 
 
-```{r yes, results = "asis"}
+```{r yes, results = "asis", echo=FALSE}
 tab_reasons_y
 ```
 
@@ -307,10 +307,11 @@ fig_hist2
 ## Appendix A: Supplementary tables, figures and results {.unnumbered #appendixd}
 
 
-```{r sampling}
+```{r sampling, echo=FALSE}
 tab_sampling
 ```
-```{r, results = "asis"}
+
+```{r, results = "asis", echo=FALSE}
 tab_fig1
 ```
 
@@ -320,7 +321,7 @@ tab_fig1
 
 
 
-```{r yesall, results = "asis"}
+```{r yesall, results = "asis", echo=FALSE}
 tab_reasons_y_all
 ```
 
@@ -330,7 +331,7 @@ tab_reasons_y_all
 
 
 
-```{r no, results = "asis"}
+```{r no, results = "asis", echo=FALSE}
 tab_fig2
 ```
 
@@ -340,7 +341,7 @@ tab_fig2
 
 
 
-```{r trust, results = "asis"}
+```{r trust, results = "asis", echo=FALSE}
 tab_trust
 ```
 \newpage
@@ -362,7 +363,7 @@ hist_gender
 \pagebreak
 
 
-```{r, results = "asis"}
+```{r, results = "asis", echo=FALSE}
 dmeans
 ```
 
@@ -370,7 +371,7 @@ dmeans
 \clearpage
 
 
-```{r, results = "asis"}
+```{r, results = "asis", echo=FALSE}
 nas
 ```
 ________________
@@ -384,22 +385,22 @@ ________________
 
 
 
-```{r tabq1}
+```{r tabq1, echo=FALSE}
 tab_question1
 ```
 
 
-```{r tabq2}
+```{r tabq2, echo=FALSE}
 tab_question2
 ```
 
 
-```{r tabq3}
+```{r tabq3, echo=FALSE}
 tab_question3
 ```
 
 
-```{r tabq4}
+```{r tabq4, echo=FALSE}
 tab_question4
 ```
 ________________

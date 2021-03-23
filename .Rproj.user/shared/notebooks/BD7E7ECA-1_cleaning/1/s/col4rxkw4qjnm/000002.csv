@@ -1,0 +1,15 @@
+"0","knitr::opts_chunk$set(echo = FALSE)"
+"0",""
+"0","if (!require(pacman)) install.packages(""pacman"")"
+"2","Loading required package: pacman
+"
+"0","pacman::p_load(tidyverse, DT, knitr, lazyeval, labelled, "
+"0","               readxl, googledrive, kableExtra, estimatr, "
+"0","               ggforce, magrittr, RColorBrewer, readstata13, "
+"0","               metaplus, sjlabelled, purrr)"
+"0",""
+"0","source(""2_code/functions.R"")"
+"2","cannot open file '2_code/functions.R': No such file or directory"
+"2","Error in file(filename, ""r"", encoding = encoding) : 
+  cannot open the connection
+"

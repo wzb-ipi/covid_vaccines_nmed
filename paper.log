@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.16)  23 MAR 2021 18:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.16)  23 MAR 2021 21:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1207,128 +1207,126 @@ Underfull \hbox (badness 10000) in paragraph at lines 539--542
 
  []
 
-[13]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-48.
-(c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [14] [15
+[13] [14
 
 ]
-<paper_files/figure-latex/mainfigure1-1.pdf, id=305, 650.43pt x 542.01997pt>
+<paper_files/figure-latex/mainfigure1-1.pdf, id=300, 650.43pt x 542.01997pt>
 File: paper_files/figure-latex/mainfigure1-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/mainfigure1-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/mainfigure1-1.pdf  used on in
-put line 590.
+put line 584.
 (pdftex.def)             Requested size: 469.76817pt x 391.46985pt.
-<paper_files/figure-latex/fig2paper-1.pdf, id=306, 722.7pt x 542.01997pt>
+<paper_files/figure-latex/fig2paper-1.pdf, id=301, 722.7pt x 542.01997pt>
 File: paper_files/figure-latex/fig2paper-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/fig2paper-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/fig2paper-1.pdf  used on inpu
-t line 650.
+t line 638.
 (pdftex.def)             Requested size: 469.76045pt x 352.31708pt.
-<paper_files/figure-latex/fig3paper-1.pdf, id=307, 722.7pt x 650.43pt>
+<paper_files/figure-latex/fig3paper-1.pdf, id=302, 722.7pt x 650.43pt>
 File: paper_files/figure-latex/fig3paper-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/fig3paper-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/fig3paper-1.pdf  used on inpu
-t line 660.
+t line 648.
 (pdftex.def)             Requested size: 469.76045pt x 422.78441pt.
-[16
+[15
 
- <./paper_files/figure-latex/mainfigure1-1.pdf>] [17] [18 <./paper_files/figure
--latex/fig2paper-1.pdf>] [19 <./paper_files/figure-latex/fig3paper-1.pdf>]
+ <./paper_files/figure-latex/mainfigure1-1.pdf>] [16] [17 <./paper_files/figure
+-latex/fig2paper-1.pdf>] [18 <./paper_files/figure-latex/fig3paper-1.pdf>]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 674.
+(hyperref)                be the same. Added a new anchor on input line 662.
 
-[20
+[19
+
+] [20
 
 ] [21
 
-] [22
-
-] [23] [24] [25
-
-] [26
+] [22] [23
 
 ]
-Overfull \hbox (39.56999pt too wide) in alignment at lines 896--901
+Overfull \hbox (39.56999pt too wide) in alignment at lines 854--859
  [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (39.56999pt too wide) in alignment at lines 901--906
+Overfull \hbox (39.56999pt too wide) in alignment at lines 859--864
  [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (39.56999pt too wide) in alignment at lines 906--908
+Overfull \hbox (39.56999pt too wide) in alignment at lines 864--866
  [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (39.56999pt too wide) in alignment at lines 908--911
+Overfull \hbox (39.56999pt too wide) in alignment at lines 866--869
  [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (39.56999pt too wide) in alignment at lines 911--932
+Overfull \hbox (39.56999pt too wide) in alignment at lines 869--890
  [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (39.56999pt too wide) in alignment at lines 932--952
+Overfull \hbox (39.56999pt too wide) in alignment at lines 890--910
  [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (39.56999pt too wide) in alignment at lines 952--972
+Overfull \hbox (39.56999pt too wide) in alignment at lines 910--930
  [] [] [] [] [] [] [] [] [] [] 
  []
 
-[27
+[24
+
 
 ]
-Overfull \hbox (39.56999pt too wide) in alignment at lines 972--978
+Overfull \hbox (39.56999pt too wide) in alignment at lines 930--936
  [] [] [] [] [] [] [] [] [] [] 
  []
 
-[28] [29]
-<paper_files/figure-latex/genderhist-1.pdf, id=392, 722.7pt x 650.43pt>
+[25] [26]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 9
+46.
+(c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+<paper_files/figure-latex/genderhist-1.pdf, id=379, 722.7pt x 650.43pt>
 File: paper_files/figure-latex/genderhist-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/genderhist-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/genderhist-1.pdf  used on inp
-ut line 993.
+ut line 951.
 (pdftex.def)             Requested size: 469.76045pt x 422.78441pt.
-[30
+[27
 
- <./paper_files/figure-latex/genderhist-1.pdf>] [31] [32
+ <./paper_files/figure-latex/genderhist-1.pdf>] [28] [29
 
 ]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[33] [34]
-Overfull \hbox (2.7695pt too wide) in paragraph at lines 1188--1188
+[30] [31]
+Overfull \hbox (2.7695pt too wide) in paragraph at lines 1116--1116
 []|\T1/ptm/m/n/10 Mozambique|  
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[35] [36
+[32] [33
 
 
-] [37
 
-] [38
+] [34
 
 ]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1250.
+(hyperref)                be the same. Added a new anchor on input line 1172.
 
-[39] [40] [41] [42] [43] [44] [45] [46] [47] [48] [49] [50] [51] (./paper.aux)
+[35] [36] [37] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47] (./paper.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1336,15 +1334,15 @@ Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: A5DD29AB115A45D00EF93F42345CE02C;13236.
  ) 
 Here is how much of TeX's memory you used:
- 14444 strings out of 480970
- 220267 string characters out of 5906243
+ 14440 strings out of 480970
+ 220239 string characters out of 5906243
  655161 words of memory out of 5000000
  31207 multiletter control sequences out of 15000+600000
  477864 words of font info for 142 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  71i,14n,74p,1674b,570s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.en
-c}{c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.e
+{c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.e
+nc}{c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.e
 nc}<c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmmi10.pfb><c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmr10.pfb><c:/Users/solis/AppData/Roaming/TinyTeX/texmf-dis
@@ -1355,10 +1353,10 @@ aming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Users/solis/AppDa
 ta/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Users/solis
 /AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Users/
 solis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (51 pages, 295208 bytes).
+Output written on paper.pdf (47 pages, 290169 bytes).
 PDF statistics:
- 601 PDF objects out of 1000 (max. 8388607)
- 529 compressed objects within 6 object streams
- 159 named destinations out of 1000 (max. 500000)
+ 583 PDF objects out of 1000 (max. 8388607)
+ 515 compressed objects within 6 object streams
+ 155 named destinations out of 1000 (max. 500000)
  277 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,481 @@
+---
+title: "Vaccine Acceptability in Developing Countries"
+author: 
+ - Elliot Collins^[IPA]
+ - Macartan Humphreys^[WZB, Columbia University]
+ - Dean Karlan^[IPA and Northwestern University]
+ - Rebecca Littman^[University of Illinois Chicago]
+ - Niccolo Meriggi^[IGC]
+ - Mushfiq Mobarak^[Yale University]
+ - Saad Omer^[Yale Institute for Global Health]
+ - Alexandra Scacco^[WZB]
+ - Julio S. Solís Arce, WZB
+ - Matthieu Teachout, IGC
+ - Maarten Voors^[Wageningen University]
+ - Shana Warren*
+abstract: "We describe reported acceptability of Covid vaccines across x countries. For the most recent version of this paper see [here](https://www.dropbox.com/s/2baybxsji9t7q17/paper.pdf?dl=0)"  
+toc: false
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+bibliography: bib.bib
+linestretch: 1.5
+
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, child = "1_cleaning.Rmd", include = FALSE, eval = FALSE}
+
+```
+
+```{r, eval = FALSE, include = FALSE}
+Summary (50 words)
+Background (less than 100 words)
+Methods (less than 100 words)
+Findings (less than 100 words)
+Interpretation (40 words)
+Funding
+Introduction (360 words)
+```
+
+# Introduction
+
+A safe and effective vaccine against COVID-19 will be a critical tool to control the COVID-19 pandemic. As per late November 2020, pharmaceutical companies Pfizer, Moderna and AstraZeneca have announced that their newly developed vaccines have passed the third stage of experimentation, showing high effectiveness levels. The Pfizer vaccine has now been approved by XXX [regulatory body in the UK : Medicines and Healthcare products Regulatory Agency (MHRA), @mhra2020]. In many high income countries, vaccination campaigns are due to start in December 2020 and January 2021. 
+
+Yet decades of efforts to promote universal vaccination of [insert disease list of the most standard ones] has shown significant variation in adoption rates around the world, and some insights but rarely one clear explanation for why adoption is not universal. [summarize theories? Info? Price? Trust?]. However, COVID-19 may be different, given the publicity, perception, and worldwide attention to the pandemic. 
+
+We report on [xx] in countries of over [] individuals in order to assess intentions and perceptions of upcoming COVID-19 vaccines. This information should inform public health campaigns…..
+
+Delivering a COVID-19 vaccine globally will undoubtedly create significant challenges both in managing the distribution (or ‘supply’) of the vaccine as well as its adoption (or ‘demand’) by population. Acceptance of the vaccine and trust in the institutions administering the vaccine are key determinants of the success of any vaccination campaign [@defigueiredo2020lancet]. While several studies have documented the willingness to take a potential COVID-19 vaccine in high income or in OECD countries [@lazarus2020nature; @boyon2020ipsos], little is known about rates of acceptance in LMICs.^[The majority of the world population resides in LMICs – put figure and reference] Willingness to adopt a COVID-19 vaccine, the reasons for refusing to take it and trust in institutions, can differ considerably across countries and across [socioeconomic?] groups within countries. Understanding these factors is a key first step in developing effective and targeted communication campaigns to enhance trust in, and acceptance of, a COVID-19 vaccine. 
+
+We use data from XXX respondents in XX original household surveys from 17 countries from Low and Middle Income Countries (LIMC) in Africa (Burkina Faso, Côte d'Ivoire, Ghana, Kenya, Mozambique, Nigeria, Rwanda, Sierra Leone, Uganda, Zambia), Asia (Bangladesh, India, Nepal, Myanmar, Pakistan(?), Philippines), and Latin America (Colombia). We document wide variation on vaccine acceptance rates, both across countries and within subgroups. In particular, XX. Main reasons for taking the vaccine are XX. We discuss potential policy responses. 
+
+
+@lane2018vaccine @bhopal2020vaccine @bright2017systematic 
+
+# Data and Methods
+
+## Sample construction
+We present results from XX samples from 9 countries in Sub-Saharan Africa (Burkina Faso, Ghana, Kenya, Mozambique, Nigeria, Rwanda, Sierra Leone, Uganda, Zambia), three countries in Asia (India, Nepal, Pakistan), one country in Latin America (Colombia), as well as Russia and the United States. The total population in these countries is XX.
+
+Appendix A provides information on the timing of the spread of COVID-19 for each country in our sample. In each sample, we conducted at least one telephone survey between September - December 2020. Data thus represents phone owners, and this implies that poorer households, who may not own phones or live in areas with low connectivity, may be underrepresented.
+
+XX of the samples (denoted XX, XX, XX, XX in Table A1) in XX countries were constructed from pre-existing studies. These samples, are randomly drawn from a population of interest for those earlier studies. The populations from which these samples are drawn varies and is elaborated in Appendix B.
+
+XX samples (WHICH) are drawn via phone random digit dialing (RDD). These samples are thus statistically representative of the set of active mobile phone numbers held by adults.
+The primary reporting unit are individual adults (associated with the phone number). Sampling weights for representativeness are described in Appendix C (?)
+ 
+All survey post-COVID-19 data were conducted via telephone to minimize in-person contact and comply with government social distancing guidelines. Interviews were conducted by local enumerators in each country, 2 with procedures to match languages, dialects, and accents between respondent and enumerator.
+
+<!-- SW: Comment: Is this true of all samples? -->
+
+Surveying by phone made rapid and large-scale data collection possible over a large set of geographical units. Unfortunately, interviewing by telephone places limits on data collection. Surveys were designed to be short, lasting only 15–30 minutes with relatively coarse measures of income and welfare, and render anthropometric measurements infeasible.
+ 
+Survey questions were coordinated across samples to the extent possible for data consistency. However, there were necessary adaptations for local context (IF ANY). We provide a detailed description of how each variable was constructed for each sample in Appendix C. Our main outcome is vaccine acceptability. Specifically, we asked “If a COVID-19 vaccine becomes available in [country], would you take it?”. We report the fraction of each sample who reported yes. To understand respondent reasons for taking a vaccine we ask “Why would you take it?” across several answer categories, including “Protect self”, “Protect community”, “Protect family”, “So that the situation can get back to normal”, “Government or health center recommended”, “Other”
+
+To examine heterogeneity of effects across demographic strata, we further subdivide our analysis by gender, age group (18-29, 29-45, 45-60, 60+) and education levels (Less than primary, Primary, More than primary).
+
+# Statistical Analysis (approx. 400 words)
+
+# Results
+%Assigned: 
+
+
+
+```{r, child = "2_tables.Rmd", include = TRUE}
+
+```
+
+
+# Discussion
+%Assigned: Saad?
+
+
+%Notes on vaccine uptake interventions in LMIC, to be used based on findings and fit -- notes from Shana
+* Phone and SMS Reminders *
+Reminder and recall interventions using SMS alone or in combination with phone calls or monetary incentives may be effective at encouraging timely vaccination, but studies of infant vaccination reminders demonstrate modest and inconsistent outcomes. Text reminders in urban Nigeria and Zimbabwe improved timely immunization by 8 to 16 percentage points (Bangure et al., 2015; Eze & Adeleye, 2015). Yet studies in urban Burkina Faso and semi-rural Nigeria produced mixed results (Schlumberger et al., 2015; Ekhaguere et al., 2019) and a study in rural Kenya failed to produce significant gains in immunization (Gibson et al., 2017). Though sending SMS is inexpensive, it is only one component of the intervention. If the eventual covid vaccination requires multiple doses in a tight window, successful reminder intervention will require up-to-date electronic vaccination records capable of sending auto-generated messaging to individuals within the critical time window. Many LMICs still rely on paper-based systems to track vaccinations, which are labor intensive, error-prone, and not easily integrated with a large-scale SMS messaging intervention.
+
+* Cash and in-kind incentives *
+Evidence for monetary incentives to promote child vaccination in LMICs is inconsistent. A 2017 systematic review found null results for cash transfer studies on immunization, and mixed positive results for a cash transfer combined with services strengthening (Bright et al., 2017). Oya-Ita et al., (2016) found evidence that monetary incentives have little to no effect on immunization uptake and Lagarde et al., (2007) found unclear results for conditional cash transfers. Positive results for full immunization were found in rural Kenya for a small monetary incentive (200 KES) combined with SMS (Gibson et al., 2017). Evidence from Nigeria indicates that women’s tetanus toxoid vaccination is highly responsive to cash incentives: The effect of a C800 incentive is 28.2 percentage points and the effect of a C300 incentive is 19.3 percentage points (Sato & Takasaki, 2018).
+
+In Pakistan, food/medicine coupon incentives for immunization led to a two-fold increase in DTP up-to-date coverage (Chandir et al., 2010). Reliable immunization service availability,  with an in-kind incentive (1 kg of raw lentils per immunization and a set of metal plates upon completion of full schedule) in India led to 39 percent of children being fully immunized compared to 18 percent in reliable immunization access treatment only villages, and 6 percent in control villages (Banerjee et al., 2010).
+
+Though there is some promising evidence, the use of incentives raise issues of dependency, sustainability and scalability. Incentives may demotivate vaccine uptake and other public health behaviors when incentives are no longer offered.
+
+* SBCC with Community Leader Engagement*
+Engaging communities through traditional and religious leaders in Nigeria had no impact on up-to-date childhood vaccination, but was effective in reducing the number of unvaccinated children and improving timeliness of later vaccines (Oya-Ita et al., 2020). A grassroots mobilization campaign that engaged traditional, religious and political leadership in Nigeria led to a relative increase of 310 percent in polio vaccination uptake and a net reduction of 29 percent in never-vaccinated children (Nasiru et al., 2012). Community engagement appears to be particularly effective in contexts where community misconceptions and distrust of vaccination are key drivers of low coverage. Nigeria is a prime example of such a context: the boycott of the polio vaccine in the early 2000s over rumors and misinformation have left pockets of distrust in the country.
+
+* Social Signalling *
+Social signalling of vaccination status may simultaneously signal receipt and shape social norms in favor of immunization. A promising study in Sierra Leone provided colored bracelet treatments to signal initiation, progress, or completion of a series of child vaccinations (Karing, 2018). All three treatments led to a significant increase in the number of vaccines received, but only the completion bracelet treament led to a significant increase in full and timely vaccination. Signalling bracelets cost approximately USD$1 per child for the full set of immunizations. Covid immunization regimes are anticipated to require only 1-2 doses and to be able to be given to multiple household members in a single visit, and should therefore be much less expensive to implement.
+
+
+
+
+---
+nocite: '@*'
+...
+
+\newpage 
+# References
+
+<div id="refs"></div>
+
+\newpage 
+
+# Acknowledgements
+
+\newpage 
+
+# Supplementary Appendix
+
+## Overview 
+
+Overview of confirmed cases and deaths for each country – as a graph? similar to LSE blog perhaps (https://
+blogs.lse.ac.uk/covid19/2020/10/20/sierra-leone-locked-down-early-to-contain-covid-but-at-a-high-price/)
+
+<!-- SW Comment: -->
+<!-- do we want to present this data? It seems that the necessity of vaccination is about far more than deaths within a country, that these stats are easily accessible, and that monitoring capacity in many countries in the sample is low enough that it's less clear how to use these numbers anyway. thoughts? Data on cases and deaths as of Dec 14, 2020 in Section B -- static only-->
+
+
+# Sample Descriptions
+
+<!-- B. Sample Descriptions for each sample – for each sample details on population, how sample was selected, sample nrs, weights, else? -->
+
+<!-- NM: Available for Mozambique, Pakistan 1, Pakistan 2, Russia, US. All SL samples were on the Science paper. Need to follow-up on Uganda and possibly Myanmar. -->
+<!-- I've put IRBs for most studies in DB. Waiting for Pakistan 1 and Pakistan 2. -->
+
+In this Appendix section we describe each sample in the study. Table XXX reports summary statistics for each sample, with comparisons to national averages based on Living Standards Measurement Study (LSMS) surveys for random digit dialing surveys and sampling frame summary statistics where available for subpopulation surveys.
+
+## Burkina Faso, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample
+
+\textbf{COVID-19 Experience}
+\emph{Case History:}
+\begin{itemize}
+ \item March 9: First confirmed case
+\item Total cases: 3,894 as of December 13, 2020 (World Health Organization)
+\item Total deaths: 71 as of December 13, 2020 (World Health Organization)
+\end{itemize}
+
+\noindent \textbf{Target Population}: A random sample of all adults with mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+\noindent \textbf{COVID-19 Survey Design:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share for a two-round panel survey.
+
+\emph{Sampling Frame:} All mobile phone numbers in Burkina Faso.
+
+\emph{Survey Dates:} Round 1 June 6 and 15, 2020; Round 2
+
+\emph{Sample size, tracking and attrition:}  1,356 individual surveys contacted through Random Digit Dialing (RDD) from the sampling frame of all mobile phone numbers in Burkina Faso. 2,313 working numbers yielded 1,383 eligible respondents for a completion rate of 98\% of eligible respondents in the first round.
+
+\emph{Sampling Weights:} Surveyed households are weighted by geographic unit and gender of respondent, using the inverse likelihood of being sampled based on the most recent nationally representative household survey, the 2014 Enquête Multisectorielle Continue (EMC) Survey.
+
+\emph{IRB Approval:} This research was approved via IPA IRB Protocol 15608, and the Burkina Faso Institutional Ethics Committee for Health Sciences Research, approval A13-2020.
+
+
+## Colombia, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample
+
+\textbf{COVID-19 Experience}
+
+\emph{Case History:}
+\begin{itemize}
+ \item March 6: First confirmed case
+ \item Total cases: 1,417,012 as of December 14, 2020 (World Health Organization)
+\item Total deaths: 38,866 as of December 14, 2020 (World Health Organization)
+\end{itemize}
+
+\noindent \textbf{Target Population}: A random sample of all numerically possible mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+\noindent \textbf{Original Study Design:} N/A
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+\emph{Sampling Frame:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share. 
+
+\emph{Survey Dates:} Round 1, May 8-15, 2020; Round 2 (with covid questions for this study)
+
+\emph{Sample size, tracking and attrition:} 1,507 interviews
+
+\emph{Sampling Weights:} Surveyed households are weighted by geographic unit and gender of respondent, using the inverse likelihood of being sampled based on the most recent nationally representative household survey, the 2016 Gran Encuesta Integrada de Hogares (GEIH) Survey.
+
+\emph{IRB Approval:} . This research was approved via IPA IRB Protocol 15582.
+
+
+
+
+
+
+## India
+
+\noindent \textbf{Target Population}: 
+
+\noindent \textbf{Original Study Design:} 
+
+\emph{Intervention:} IF APPLICABLE
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+\emph{Sampling Frame:} 
+
+\emph{Survey Dates:} 
+
+\emph{Sample size, tracking and attrition:} 
+
+\emph{Sampling Weights:} 
+
+\emph{IRB Approval:}
+
+
+
+
+
+
+##Mozambique
+
+\noindent \textbf{Target Population}: 
+
+\noindent \textbf{Original Study Design:} 
+
+\emph{Intervention:} IF APPLICABLE
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+\emph{Sampling Frame:} 
+
+\emph{Survey Dates:} 
+
+\emph{Sample size, tracking and attrition:} 
+
+\emph{Sampling Weights:} 
+
+\emph{IRB Approval:}
+
+
+
+
+
+
+## Nigeria
+
+\noindent \textbf{COVID-19 Experience}
+\noindent \emph{Case History:}
+\begin{itemize}
+\item First COVID-19 case confirmed on February 28, 2020
+\item Number of confirmed cases: 73,175 as of December 14, 2020 (WHO)
+\item Number of deaths: 1,197 as of December 14, 2020 (WHO)
+\end{itemize}
+
+\noindent \textbf{Target Population}: 
+
+\noindent \textbf{Original Study Design:} 
+
+\emph{Intervention:} IF APPLICABLE
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+\emph{Sampling Frame:} 
+
+\emph{Survey Dates:} 
+
+\emph{Sample size, tracking and attrition:} 
+
+\emph{Sampling Weights:} 
+
+\emph{IRB Approval:}
+
+
+
+
+
+## Nepal,  Western Terai Panel Survey (WTPS)
+
+<!-- SW: full project title -->
+
+\noindent \textbf{COVID-19 Experience}
+
+\noindent \emph{Case History:}
+\begin{itemize}
+\item First COVID-19 case confirmed on January 23, 2020
+\item Second case confirmed on March 23, 2020
+\item Number of confirmed cases: 248,423 as of December 14, 2020 (WHO)
+\item Number of deaths: 1,698 as of December 14, 2020 (WHO)
+\end{itemize}
+
+<!-- Assigned @corey.vernot@yale.edu -->
+
+\noindent \textbf{Target Population}: Rural households in the districts of Kailali and Kanchanpur.
+
+\noindent \textbf{Original Study Design:} Initial baseline data  was collected in-person in July of 2019, and 5 rounds of phone survey data were collected between August 12, 2019 and January 4, 2020.
+
+\emph{Sampling Frame:} The phone survey sample includes 2,636 rural households in the districts of Kailali and Kanchanpur, which represent the set of households that responded to phone surveys from an original sample of 2,935 households. This sample was constructed by randomly sampling 33 wards from 15 of the 20 sub-districts in Kailali and Kanchanpur and selecting a random 97 villages from within those wards. At the time of baseline data collection in July of 2019, 7 of these 97 villages were dropped from the sample due to flooding. Households belong to the bottom half of the wealth distribution in these villages, as estimated by a participatory wealth ranking exercise with members of the village.
+
+\emph{Survey Dates:}December 1st - December 11, 2020
+
+\emph{Sample size, tracking and attrition:}  1,392 households
+
+\emph{Sampling Weights:} Included
+
+\emph{IRB Approval:} Yale University IRB Protocol 2000025621
+
+
+\emph{Sampling Frame:} The phone survey sample includes 2,636 rural households in the districts of Kailali and Kanchanpur, which represent the set of households that responded to phone surveys from an original sample of 2,935 households. This sample was constructed by randomly sampling 33 wards from 15 of the 20 sub-districts in Kanchanpur and selecting a random 97 villages from within those wards. At the time of baseline data collection in July of 2019, 7 of these 97 villages were dropped from the sample due to flooding. Households belong to the bottom half of the wealth distribution in these villages, as estimated by a participatory wealth ranking exercise with members of the village.
+
+\noindent \textbf{COVID-19 Survey Design:} Phone surveys 
+
+\emph{Sampling Frame:} Two phone surveys were fielded in April, 2020. The first included detailed questions on social distancing and more sparse data on other socioeconomic variables. This survey attempted to reach the universe of 1,820 households that had responded to at least one prior phone call in 48 villages, and successfully reached 1,419 households. The second survey included only sparse information on social distancing and more detailed questions on socioeconomic variables. This survey attempted to reach a random sample of 500 households across the remaining 42 villages, and successfully reached 408.
+
+
+
+
+## Rwanda, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample
+
+\noindent \textbf{COVID-19 Experience}
+
+\emph{Case History:}
+\begin{itemize}
+ \item First confirmed case: March 14
+ \item Total cases: 6,659 as of December 14, 2020 (World Health Organization)
+\item Total deaths: 56 as of December 14, 2020 (World Health Organization)
+\end{itemize}
+
+<!-- SW to be updated -->
+
+\noindent \textbf{Target Population}: A random sample of all numerically possible mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+\noindent \textbf{Original Study Design:} N/A
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+ \emph{Sampling Frame:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share. 
+
+\emph{Survey Dates:} Round 1, June 4 -12, 2020;
+
+\emph{Sample size, tracking and attrition:} 
+
+\emph{Sampling Weights:} Surveyed households are weighted by geographic unit and gender of respondent, using the inverse likelihood of being sampled based on the most recent nationally representative household survey, the 2016/17 Integrated Household Living Conditions Survey (EICV5) produced by the National Institute of Statistics Rwanda (NISR) and the Ministry of Finance and Economic Planning.
+
+\emph{IRB Approval:} This research was approved via IPA IRB Protocol 15591, Rwanda National Institute for Scientific Research permit No.0856/2020/10/NISR; and Rwanda National Ethics Committee approval No.16/RNEC/2020.
+
+
+
+
+## Russia
+
+<!-- Assigned: Gosha -->
+
+\noindent \textbf{Target Population}: 
+
+\noindent \textbf{Original Study Design:} 
+
+\emph{Intervention:} IF APPLICABLE
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+\emph{Sampling Frame:} 
+
+\emph{Survey Dates:} 
+
+\emph{Sample size, tracking and attrition:} 
+
+\emph{Sampling Weights:} 
+
+\emph{IRB Approval:}
+
+
+
+## Sierra Leone
+
+\noindent \textbf{COVID-19 Experience}
+
+\noindent \emph{Case History:}
+\begin{itemize}
+    \item First confirmed case: March 20
+    \item Total cases: 2,442 as of December 14, 2020 (WHO)
+    \item Total deaths: 75 as of December 14, 2020 (WHO)
+\end{itemize}
+
+<!-- assigned: @niccolo.meriggi@theigc.org @maarten.voors@wur.nl  Could you update this section? -->
+
+\subsubsection{Sierra Leone SLE1, Towns that are Candidates for Rural Electrification}
+
+\noindent \textbf{Project Title:} Sierra Leone Rural Electrification (SLRE)
+
+\noindent \textbf{Target Population}: Households in 195 rural towns across all 12 districts of Sierra Leone. Of these, 97 villages were selected to benefit from an electrification program.
+
+\noindent \textbf{Original Study Design:} 
+
+\emph{Intervention:} The Government of Sierra Leone (GoSL) in collaboration with United Nations Office for Project Services (UNOPS) and international donors is implementing the Rural Renewable Energy Project (RREP). In its first wave, during 2017, the project provided stand-alone solar photovoltaic powered mini-grids to 54 communities across the country. Construction of mini-grids in a further 43 towns is ongoing. In selected communities, engineers construct 6kW--36kW power mini-grids that provide reliable power year-round. Electricity is free for schools and clinics. Residential and commercial users can acquire connections from commercial operators. 
+
+ \emph{Village Sampling Frame:} Household data was collected in 195 towns across all 12 districts of Sierra Leone. The GoSL selected 97 towns with (planned) mini-grids. We use Propensity Score Matching to select 98 control communities. Within communities, respondents were randomly selected from a census roster stratified by occupation status of farmers, business owners and a other occupations [47 percent, 47 percent and  7 percent]. In each village, the intended sample was 43 households (20 farmers, 20 business, 3 other). Data was collected during June--July (108 communities) and November--December 2019 (87 communities). If a household on our sampling list was not available on the village visit day, we had a randomly sampled list of replacement households to survey. The replacement household would be the same occupation as the sampled household would have been so the sample ratio of 20-20-3 still held in each community.
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+\emph{Sampling Frame:} Phone surveys were administered in 195 rural communities.  Our total household sample comprised 7047 respondents. Of these, we recorded phone numbers of 4,594. The data was first reported in \href{www.theigc.org/wp-content/uploads/2020/05/Meriggi-et-al-Data-Brief-2020.pdf}{Meriggi et al. (2020)}.
+%\cite{Meriggi2020}.
+
+\emph{Survey Dates:} April 29, 2020 – July 7, 2020
+
+\emph{Sample size, tracking and attrition:} The first round of data collection took place between April 29 and May 15, 2020, and covered 2,411 respondents from 193 towns, for a tracking rate of 44 percent. The second round was conducted between May 15 and June 4, 2020, and covered 1,628 respondents from 179 towns, for a tracking rate of 68 percent from the first round. The third round was conducted between June 5 and June 17, 2020 with 854 of respondents from 161 towns with a tracking rate of 35 percent. The fourth round took place on June 18 to June 30, 2020 which covered 818 respondents in 157 towns, for a tracking rate of 34 percent.
+
+\emph{Median survey time:} 33 minutes.
+
+\emph{Sampling Weights:} None
+
+\emph{IRB Approval:} Sierra Leone Ethics and Scientific Review Committee (SLERC 2904202) and Wageningen University (24062020).
+
+
+\subsection{Sierra Leone, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample}
+
+\noindent \textbf{Target Population}: A random sample of all numerically possible mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+\noindent \textbf{Original Study Design:} N/A
+
+\noindent \textbf{COVID-19 Survey Design:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share
+
+ \emph{Sampling Frame:} All active mobile phone numbers in Sierra Leone
+
+\emph{Survey Dates:} Round 1, May 27 to June 15, 2020; Round 2...
+
+\emph{Sample Size, Tracking and Attrition:} 1,304 surveys  
+
+\emph{Sampling Weights:} Surveyed households are weighted by geographic unit and gender of respondent, using the inverse likelihood of being sampled based on the most recent nationally representative household survey, the 2018 Sierra Leone Integrated Household Survey (SLIHS).
+
+\emph{IRB Approval:} This research was approved via IPA IRB Protocol 15592, and Sierra Leone Ethics and Scientific Review Committee approval (no approval number, letter available upon request).
+
+
+
+
+## Uganda
+
+<!-- assigned: Niccolo -->
+
+\noindent \textbf{Target Population}: 
+
+\noindent \textbf{Original Study Design:} 
+
+\emph{Intervention:} IF APPLICABLE
+
+\noindent \textbf{COVID-19 Survey Design:} 
+
+\emph{Sampling Frame:} 
+
+\emph{Survey Dates:} 
+
+\emph{Sample size, tracking and attrition:} 
+
+\emph{Sampling Weights:} 
+
+\emph{IRB Approval:}
+
+
+C. Variable Construction for each sample – for each sample the way vars where defined IF different across
+samples
+
+* this should emerge from the data collation process
+* combined with sample descriptions in section B
+
+
+D. Additional contributors to the research programs – RAs and related
+

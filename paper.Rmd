@@ -1,0 +1,175 @@
+---
+title: "COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries, and Implications for Messaging"
+author:
+- name: Julio S. Solís Arce, BA^[First author]
+  affiliation: WZB Berlin Social Science Center
+  number: 1
+- name: Shana S. Warren, PhD\(^*\)
+  affiliation: Innovations for Poverty Action (IPA)
+  number: 2
+- name: Niccoló F. Meriggi, MSc\(^*\)
+  affiliation: International Growth Centre (IGC)
+  number: 3
+- name: Alexandra Scacco, PhD\(^*\)
+  number: 1
+- name: Nina McMurry, PhD\(^*\)
+  number: 1
+- name: Maarten Voors, PhD\(^*\)
+  affiliation: Wageningen University & Research
+  number: 4
+- name: Georgiy Syunyaev, MPhil\(^*\)
+  affiliation: International Center for the Study of Institutions and Development (HSE University, Moscow, Russia)
+  number: [1, ", ", 5, ", ",  24]
+- name: Amyn Abdul Malik, PhD\(^*\)
+  affiliation: Yale Institute for Global Health
+  number: 6
+- name: Samya Aboutajdine, MA
+  number: 3
+- name: Alex Armand, PhD
+  affiliation: Nova School of Business and Economics
+  number: 7
+- name: Saher Asad, PhD
+  affiliation: Lahore University of Management Sciences
+  number: 8
+- name: Britta Augsburg, PhD
+  affiliation: The Institute for Fiscal Studies
+  number: 9
+- name: Antonella Bancalari, PhD
+  affiliation: University of St. Andrews & The Institute for Fiscal Studies
+  number: 10
+- name: Martina Björkman Nyqvist, PhD
+  affiliation: Stockholm School of Economics and Misum
+  number: 11
+- name: Ekaterina Borisova, PhD
+  affiliation: Economics Department of Ghent University
+  number: [5, ", ", 12]
+- name: Constantin Manuel Bosancianu, PhD
+  number: 1
+- name: Ali Cheema, PhD
+  affiliation: Institute of Development and Economic Alternatives
+  number: [8, ", ", 13]
+- name: Elliott Collins, PhD
+  number: 2
+- name: Ahsan Zia Farooqi, MA
+  number: 13
+- name: Mattia Fracchia, MA
+  number: 7
+- name: Andrea Guariso, PhD
+  affiliation: Trinity College Dublin
+  number: 14
+- name: Ali Hasanain, PhD
+  number: 8
+- name: Anthony Kamwesigye, BSc
+  number: 2
+- name: Sarah Kreps, PhD
+  affiliation: Cornell University
+  number: 15
+- name: Madison Levine, MSc
+  number: 4 
+- name: Rebecca Littman, PhD
+  affiliation: University of Illinois Chicago
+  number: 16
+- name: Melina Platas, PhD
+  affiliation: NYU Abu Dhabi
+  number: 17
+- name: Vasudha Ramakrishna, MSc
+  affiliation: Yale Research Initiative on Innovation and Scale (Y-RISE)
+  number: 18
+- name: Jacob N. Shapiro, PhD
+  affiliation: Princeton University
+  number: 19
+- name: Jakob Svensson, PhD
+  affiliation: Institute for International Economic Studies (IIES), Stockholm University
+  number: 20
+- name: Corey Vernot, BS
+  number: 18
+- name: Pedro C. Vicente, PhD
+  number: 7
+- name: Laurin B Weissinger, DPhil
+  affiliation: Tufts University
+  number: 21
+- name: Baobao Zhang, PhD
+  number: 15
+- name: Dean Karlan, PhD^[Last author]
+  affiliation: Kellogg School of Management at Northwestern University
+  number: [2, ", ", 22]
+- name: Michael Callen, PhD\(^\dagger\)
+  affiliation: London School of Economics
+  number: [3, ", ", 23]
+- name: Matthieu Teachout, PhD\(^\dagger\)
+  number: 3
+- name: Macartan Humphreys, PhD\(^\dagger\)
+  affiliation: Columbia University
+  number: [1, ", ", 24]
+- name: Saad B. Omer, PhD^[Corresponding author. 1 Church Street, New Haven, CT 06510. Phone  203 432 3656.  Email  \href{mailto:saad.omer@yale.edu}{saad.omer@yale.edu}]
+  number: 6
+- name: Ahmed Mushfiq Mobarak, PhD^[Corresponding author. 165 Whitney Avenue, New Haven, CT 06520-8200. Phone 203 432 5787. Email  \href{mailto:ahmed.mobarak@yale.edu}{ahmed.mobarak@yale.edu}]
+  affiliation: Yale University
+  number: 25
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+    pandoc_args:
+      - --template=4_paper_supplementary_files/mytemplate.latex
+    toc: false
+    extra_dependencies:
+      caption: ["font={bf,normalsize}"]
+      mathptmx: null
+      fontenc: ["T1"]
+  bookdown::word_document2: default
+bibliography: 4_paper_supplementary_files/bib_final.bib
+csl: 4_paper_supplementary_files/nature.csl
+header-includes:
+  - \usepackage{titlesec}
+  - \titleformat*{\subsection}{\normalsize\bfseries}
+  - \titleformat*{\section}{\large\bfseries}
+# linestretch: 1.5
+urlcolor: blue
+link-citations: yes
+linkcolor: blue
+fontsize: 12pt
+---
+
+```{r setup, include=FALSE} 
+
+library(knitr)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+
+```{r cleaning, child = "1_cleaning.Rmd", include = FALSE, eval = FALSE}
+
+```
+
+
+```{r tables, include = FALSE, message = FALSE}
+
+knitr::purl("2_tables.Rmd", documentation = 2)
+
+source("2_tables.R")
+
+file.remove("2_tables.R")
+
+nice <- function(x) prettyNum(x, big.mark = ",", scientific = FALSE)
+
+```
+
+```{r load_gdoc, include = FALSE, eval = TRUE}
+
+googledrive::drive_download(file = "NatureMedicine Covid vaccine hesitancy", 
+                            path = "4_paper_supplementary_files/Intro Vaccine.txt", overwrite = TRUE)
+
+file.rename(from = "4_paper_supplementary_files/Intro Vaccine.txt", 
+            to = "4_paper_supplementary_files/temp_download.Rmd")
+
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+
+```{r main_text, child = "4_paper_supplementary_files/temp_download.Rmd"}
+
+```
+

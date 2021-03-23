@@ -1,0 +1,1057 @@
+﻿<!-- COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries, and Implications for Messaging -->
+
+
+
+
+
+
+\newpage
+
+
+
+
+# Abstract {-}
+
+
+We analyze COVID-19 vaccine acceptance across 15 survey samples covering ten low- and middle-income countries (LMICs) in Asia, Africa, and South America, and two higher income countries (Russia and the United States). Standardized survey responses were collected from `r nice(nrow(df))` individuals. We find generally high willingness to take a COVID-19 vaccine in LMIC samples (80% on average), considerably higher than in the United States (65%) and Russia (30%). Vaccine acceptance was primarily explained by an interest in personal protection against the disease, while concern about side effects was the most commonly expressed reason for reluctance. Health workers were the most trusted sources of information about COVID-19 vaccines. Our findings suggest that prioritizing efficient and equitable vaccine distribution to LMICs should yield high returns in promoting global immunization. Interventions to promote vaccination in these contexts should focus on translating intentions into uptake and involve trusted health workers.
+
+
+
+
+\newpage
+
+
+A safe and effective vaccine against COVID-19 is a critical tool to control the pandemic. As of March 2, 2021, there were 76 vaccines in clinical development and 16 had advanced to Stage 3 clinical trials [@who1]. Following clinical trials, several vaccines have been approved in multiple countries and are being distributed across the globe. At present, global vaccine distribution remains highly unequal, with much of the current supply directed toward high-income countries [@eiu].
+
+
+While effective and equitable distribution of the vaccines is a key policy priority, ensuring the population’s acceptance is equally important. Acceptance of vaccines and trust in the institutions that administer them are likely key determinants of the success of any vaccination campaign [@defigueiredo2020lancet]. Several studies investigate high-income country residents’ willingness to take a potential COVID-19 vaccine [@boyon2020ipsos; @Malik2020]. Little is known about acceptance rates in low- and middle-income countries (LMICs), however, where the majority of the world’s population resides.
+
+
+Acceptance of childhood vaccination for common diseases ---such as measles (MCV), Bacille Calmette-Guérin (BCG) and diphtheria, tetanus, and pertussis (DTP)---is generally high in LMICs, providing reasons for optimism about future uptake of COVID-19 vaccines. Table \ref{tab:otherv} summarizes general vaccine acceptance and uptake of common childhood vaccines for the countries included in our study. Still, existing studies on COVID-19 vaccine acceptance document large variation, both across and within countries, including in settings where overall vaccination rates are high [@boyon2020ipsos]. These studies highlight concerns about COVID-19 vaccine safety, and particularly concerns about the speed of vaccine development, as reasons for hesitancy in higher income settings. Similar concerns may apply in LMICs.
+
+
+Additional reasons for hesitancy may feature more prominently in LMIC settings. Reported COVID-19 mortality rates have consistently been lower in LMICs relative to higher income countries [@mukherjee]. If individuals in LMICs feel the risk of disease is less serious, they may be less inclined to accept perceived risks associated with taking a recently-developed vaccine. Previous studies have also highlighted factors such as concerns about healthcare quality [@christensen2020building], negative historical experiences [@Lowes2018], weak support from traditional leaders [@Jegede2007], and mistrust in government [@BLAIR201789] as barriers to healthcare utilization in LMICs. 
+
+
+Understanding factors that may lead people in LMICs to reject COVID-19 vaccination is of global concern, since a lag in vaccination in the developing world could facilitate the spread of new variants of the virus to other countries.
+
+
+In order to effectively promote vaccination against COVID-19 and devise messaging strategies, we need to know if people are willing to take COVID-19 vaccines, the reasons why they are willing or unwilling to do so, and the factors influencing their decision-making. For this purpose, we developed and deployed a common set of questions across 15 studies in ten LMICs in Africa (Burkina Faso, Mozambique, Nigeria, Rwanda, Sierra Leone, Uganda), Asia (India, Nepal, Pakistan), and Latin America (Colombia). We compare these findings in LMICs to those from two higher income countries (Russia and the United States).
+
+
+
+
+# Results {-}
+
+
+
+
+Our main results are shown in Figure \@ref(fig:mainfigure1) and reproduced as Table \ref{tab:maintabledis} in [Appendix A](#appendixd). The first column provides overall acceptance rates in each study, while the remaining columns show acceptance rates disaggregated by respondent characteristics. The “All LMICs” row reports averages for LMIC countries only (and so excludes Russia and the US).
+
+
+We document meaningful variation in vaccine acceptance across and within LMICs, but generally high levels of acceptance in LMICs overall. The average acceptance across studies is `r ans_mean`% (95% CI `r ans_mean_low`--`r ans_mean_high`), with a median of `r ans_median`, a range of `r ans_max - ans_min` percent points and an interquartile range of `r ans_iqr`. Our estimate of $\tau^2$ is `r  round(mp_tau, 3)` which implies a standard deviation over country averages of  `r round(mp_tau^.5, 3)`. 
+
+
+The acceptance rate in every LMIC sample is higher than in USA (`r usa_ans %>% pull(estimate)`%, `r usa_ans %>% pull(conf.low)`--`r usa_ans %>% pull(conf.high)`) and Russia (`r rus_ans %>% pull(estimate)`%, `r rus_ans %>% pull(conf.low)`--`r rus_ans %>% pull(conf.high)`). 
+
+
+We find limited evidence of variation across demographic subgroups in LMICs, as shown in Table \ref{tab:dmeans}. Women were generally less willing to accept the vaccine (average difference about `r dif_gender` points, significant at $p<.01$). Younger respondents (defined as aged <55 given younger-skewing populations in LMICs) were marginally more willing to take the vaccine, but this difference was not statistically significant. Less educated people were on average more willing to take the vaccine in LMICs, but this difference was not significant.
+
+
+To better understand the reasoning behind vaccine acceptance, we asked those who were willing to take the vaccine why they would take it. We summarize in Table \ref{tab:yes}, with more details in Table \ref{tab:yesall}.
+
+
+The most common reason given for vaccine acceptance was personal protection against COVID-19 infection. The average across LMICs was `r yes_all$estimate`% (`r yes_all$conf.low`--`r yes_all$conf.high`). In every individual study, it ranked as the first reason. In distant second place, LMIC respondents reported willingness to take the COVID-19 vaccine in order to protect their families. The average across LMICs was `r yes_all_2$estimate`% (`r yes_all_2$conf.low`--`r yes_all_2$conf.high`). In comparison to self-protection, protecting the community did not feature prominently among the stated reasons.
+
+
+Self-protection also ranked as the most commonly expressed reason for taking the vaccine in Russia (`r yes_rus$estimate`%, `r yes_rus$conf.low`--`r yes_rus$conf.high`) and the USA (`r yes_usa$estimate`%, `r yes_usa$conf.low`--`r yes_usa$conf.high`). 
+
+
+This evidence contrasts with appeals to altruistic behavior and prosocial motivations in order to promote vaccine acceptance [@chou2020considering]. The risks and benefits to personal well-being feature much more prominently in people’s stated reasons for vaccine acceptance. 
+
+
+Figure \@ref(fig:fig2paper) summarizes the reasons given among respondents who said they were not willing to take a Covid vaccine.
+
+
+The most common reason expressed for reluctance to take the vaccine in LMIC studies was  concern about side effects. For studies  `r side_top$group[1]` (`r side_top$estimate[1]`% `r side_top$conf.low[1]`--`r side_top$conf.high[1]`), `r side_top$group[2]`  (`r side_top$estimate[2]`%, `r side_top$conf.low[2]`--`r side_top$conf.high[2]`), `r side_top$group[3]` (`r side_top$estimate[3]`% `r side_top$conf.low[3]`--`r side_top$conf.high[3]`) and `r side_top$group[4]` (`r side_top$estimate[4]`% `r side_top$conf.low[4]`--`r side_top$conf.high[4]`), more than half of those respondents unwilling to take the vaccine mentioned this reason. Respondents in Russia (`r side_rus$estimate`%, `r side_rus$conf.low`--`r side_rus$conf.high`) and the USA (`r side_usa$estimate`%, `r side_usa$conf.low`--`r side_usa$conf.high`), reported high levels of this same concern. 
+
+
+While serious adverse events that are life-threatening or require hospitalization are very rare, with only .6\% of respondents reporting at least one side effect in the Pfizer vaccine trial [@cdcadverse], one potential explanation for the outsized concern about side effects could be the lack of widespread information about features of the vaccine at the time of data collection. Media coverage of the few cases of serious adverse events and spread of fake news may contribute as well [@stein2017golden].  
+
+
+Concerns about side effects could also be due to a concern about mild side effects from experiences with other vaccines. In the case of available COVID-19 vaccines, we now know that mild side effects are common but transient. These include fatigue, muscle pain, joint pain and headache, which were severe in fewer than 10\% of people in the clinical trials of tens of thousands. Severe fever occurred in fewer than 2\% of them. [@wadman2020public] 
+
+
+Allergic reactions from the COVID-19 vaccine seem to be extremely rare. Data from trials of the Pfizer-BioNTech vaccines shows that anaphylaxis after reported administration occurs at a rate of 11.1 cases per million vaccine doses administered [@cdcallergies].  Our data reflects this --  no more than 6% of respondents expressed concern about allergies in any of our LMIC studies.   
+
+
+Other concerns that make many respondents unwilling to take the vaccine could be countered by accurately presenting the scientific data to the public. Studies `r effective_top$group[1]` (`r effective_top$estimate[1]`%, `r effective_top$conf.low[1]`--`r effective_top$conf.high[1]`), `r effective_top$group[2]`  (`r effective_top$estimate[2]`%, `r effective_top$conf.low[2]`--`r effective_top$conf.high[2]`) and `r effective_top$group[3]` (`r effective_top$estimate[3]`%, `r effective_top$conf.low[3]`--`r effective_top$conf.high[3]`) showed relatively high levels of skepticism about vaccine effectiveness. This is also true for respondents in Russia (`r effective_rus$estimate`%, `r effective_rus$conf.low`--`r effective_rus$conf.high`) and the USA (`r effective_usa$estimate`%, `r effective_usa$conf.low`--`r effective_usa$conf.high`). Recent clinical trials reveal very high rates of vaccine efficacy [@baden2021efficacy; @polack2020safety], and clearly communicating these results to the public is a high priority.  In contrast, conspiracy theories were rarely mentioned by respondents in any of our study samples, in spite of widespread popular discourse about anti-vaxxer movements and theories in higher-income countries [@loomba_measuring_2021].
+
+
+Finally, respondents in some studies downplayed the seriousness of this disease, and listed this as a reason not to be vaccinated. Studies `r ill_top$group[1]` (`r ill_top$estimate[1]`% `r ill_top$conf.low[1]`--`r ill_top$conf.high[1]`), `r ill_top$group[2]`  (`r ill_top$estimate[2]`%, `r ill_top$conf.low[2]`--`r ill_top$conf.high[2]`) and `r ill_top$group[3]` (`r ill_top$estimate[3]`% `r ill_top$conf.low[3]`--`r ill_top$conf.high[3]`) reported high rates of respondents citing lack of concern as a reason they were hesitant.
+
+
+The analysis above identifies the nature of the information gaps that any vaccine messaging should target, while in Figure \@ref(fig:fig3paper) we try to identify the actors who are best placed to deliver those messages. We asked respondents about their most trusted source of information when deciding whether to take the vaccine, because these sources are vital to disease control strategies during public health emergencies [@siegrist2014role]. Results from Figure \@ref(fig:fig3paper) are reproduced as Table \ref{tab:trust} in [Appendix A](#appendixd).
+
+
+We find striking consistency across countries. In all but one study, respondents identified the health system as the most trustworthy source to help them decide whether or not to take the COVID-19 vaccine (with the exception of Rwanda, where the government in general was identified as the most trusted source, with the health system a close second). Family and friends were the next most important reference points in most samples. Across samples, women were 3 percentage points more likely to rely on family and friends than male respondents, though this difference was not significant at conventional levels (Figure \@ref(fig:genderhist) in [Appendix D](#appendixd)). By contrast, endorsements by religious leaders or celebrity figures were not seen as important sources of influence in any sample other than Nepal.
+
+
+
+
+# Discussion {.unnumbered #discussion}
+
+
+To our knowledge, this is the first study documenting rates of expressed COVID-19 vaccine acceptance and hesitancy in a large set of LMICs. Our findings show variable but broadly high levels of prospective COVID-19 vaccine acceptance across LMICs using data from `r nice(nrow(filter(df, country!="USA" | country!="Russia")))` respondents in `r length(unique(df$country))-2` original household surveys from Africa (Burkina Faso, Mozambique, Nigeria, Rwanda, Sierra Leone, Uganda), Asia (Bangladesh, India, Nepal, Pakistan), and Latin America (Colombia). Acceptance across LMIC averages `r ans_mean`, ranging between  `r ans_min` and `r ans_max`. We document considerably lower levels of acceptance in Russia and the United States. 
+
+
+Patterns of COVID-19 vaccine hesitancy are not well predicted by existing measures of concerns about the safety of other vaccines (e.g., the Wellcome Global Monitor shown in Table \ref{tab:otherv}). Compared with other vaccines, COVID-19 vaccine acceptance is lower and more variable across LMIC samples. This suggests that concerns may apply specifically to COVID-19 vaccines rather than to vaccination more broadly.
+
+
+Our study also documents reasons why respondents express intentions to take (or not take) a COVID-19 vaccine. The main reason expressed for willingness to take such a vaccine was to protect oneself. The most common reasons offered by those unwilling to take the vaccine were concerns about safety (side effects) and efficacy. Across all contexts, health care workers were the most trusted source of information  about vaccines.
+
+
+Our study samples offer an important window into the motivations underlying COVID-19 vaccine acceptance in LMICs, but our data are not fully nationally representative. Random digit dial samples and follow-up phone surveys, while necessary during a global pandemic, do not include individuals who reside outside coverage areas, who do not own or cannot operate cell phones, or who choose not to respond to telephone surveys. Care should also be taken in any attempt to extrapolate to the population level from the samples representative of narrow subpopulations.
+
+
+If intentions reported in our LMIC samples translated into actual vaccination uptake, the rates would far exceed the range of what would be required for COVID-19 herd immunity (40-67% in recent estimates [@britten2020; @haley2020]). However, reported intent may not materialize into actual vaccine adoption [@mceachanetal2011]. The high salience of COVID-19 due to extensive media coverage and government mitigation efforts and excitement around vaccine release may have increased reported intention [@chen1996]. Results from  the first COVID-19 vaccine Phase 3 clinical trial were announced before some surveys were fielded; during others, subsequent approvals were granted. The fast-moving information environment may change people’s perceptions about vaccines by the time they are widely available in LMICs. 
+
+
+Nonetheless, our findings provide some specific guidance on how to design messaging to boost COVID-19 vaccine acceptance and uptake in LMICs. Our data have implications for both what the content of the message should be, and who should deliver the message.  
+
+
+First, high levels of trust in the advice of health workers and governments on COVID-19 vaccine decision-making suggest that social and behavioral change communication (SBCC) strategies that engage local health workers may be particularly effective tools to encourage timely and complete vaccine uptake, and to combat remaining vaccine hesitancy. The literature has  explored messaging strategies to promote welfare-improving behaviors, with considerable attention paid to celebrity endorsements [@alatas2019celebrities]. Our data strongly support the view [@bokemper2021timing] that those with the most relevant expertise - as opposed to celebrities or general opinion leaders - are most trusted on this specific topic and are therefore best positioned to deliver the message.    
+
+
+Second, the average COVID-19 vaccine acceptance rate across our LMIC samples is high, approximately `r ans_mean`\%. Given such positive intentions, there may be high returns to investing in straightforward “last-mile” nudges that help citizens convert intentions into actions. Reminder messages from healthcare providers and messages alerting patients that vaccines have been reserved for them at an upcoming appointment may provide a low-cost encouragement to initiate and complete two-dose COVID-19 vaccinations, as was found in two recent large-scale studies in the United States [@milkmanetal2021a; @milkmanetal2021b]. Similarly, childhood vaccination reminders plus cash incentives in Kenya substantially increased full immunization [@gibsonetal2017], and cash and in-kind incentive programs in Nigeria and India have also proven effective [@idinsight; @Banerjee2010].
+
+
+Third, high coverage rates of existing vaccines, coupled with respondents’ reliance on friends and family as information sources, suggest that the general pro-vaccination stance of many citizens could be leveraged to convert intent to uptake. Social learning strategies and norm-setting are powerful drivers of information diffusion and behavior change in many related sectors [@beaman2021can]. Social signalling of positive attitudes toward COVID-19 vaccines may also help shift social norms toward even greater immunization acceptance and two-dose completion in the community at large [@karing2018social]. 
+
+
+Finally, our findings offer guidance on the specific content of vaccine messaging that is likely to be most persuasive. Messaging should highlight the high efficacy rates of the COVID-19 vaccines currently on the market in reducing or eliminating disease, hospitalizations and death. Alluding to clinical data that addresses people’s concerns about potential side effects should be prioritized. Messaging should also emphasize the direct protective benefits of the vaccine to the adopter. 
+
+
+# Methods {-}
+
+
+## Survey questions and sample construction {-}
+
+
+
+
+Survey data were collected between June 2020 and January 2021. Our main outcome measure is vaccine acceptance. Across studies, we asked respondents, “If a COVID-19 vaccine becomes available in [your country], would you take it?”. If the respondent answered yes to this question, we followed up with the question, “Why would you take it? [the COVID-19 vaccine]”. If the respondent said they would not be willing to take the vaccine, we followed up with the question, “Why would you not take it? [the COVID-19 vaccine]”. Finally, regardless of their expressed willingness to take the vaccine, we asked about  actors and institutions who would be influential in their decision. The question was worded in the following way: “Which of the following people would you trust MOST to help you decide whether you would get a COVID-19 vaccine, if one becomes available?”. To examine heterogeneity across demographic strata, we collected information about the gender, age, and education level of each respondent. Slight variations in questions wording and answer options across studies are documented in [Appendix B](#appendixb).
+
+
+Studies vary in terms of geographic scope, sampling methodology, and survey modality. Seven were national or nearly-national in scope. Among these, studies from Burkina Faso, Colombia, Rwanda, and Sierra Leone ("Sierra Leone 1") used nationally-representative samples of active mobile phone numbers reached through Random Digit Dialing (RDD). Studies in the USA and Russia were conducted online using quota samples obtained from private survey companies.
+
+
+The remaining eight studies targeted sub-national populations. One study from Pakistan ("Pakistan 2") used RDD to reach a representative sample of active mobile phone users in Punjab province. Respondents in Mozambique, Nigeria, "Pakistan 1", "Uganda 1","Uganda 2", India, Nepal and "Sierra Leone 2” were drawn from pre-existing studies to which COVID-19 vaccine questions were subsequently added. For example, "Sierra Leone 2” has national coverage from a study on access to electricity and “Uganda 1” sampled female caregivers of households in rural and semi-rural villages as part of a large ongoing cluster-RCT implemented across 13 districts. 
+
+
+Table \ref{tab:sampling} in [Appendix A](#appendixd) summarizes the geographic scope, sampling methodologies and survey modalities of all 15 studies. A detailed description of each study is included in [Appendix D](#appendixa).
+
+
+All LMIC surveys were conducted via telephone to minimize in-person contact and comply with local government social distancing guidelines. Interviews were conducted by local staff in each country in local language(s). Surveying by phone made rapid, large-scale data collection possible. Surveys lasted approximately 15 to 40 minutes.
+
+
+Taken together, we have data from `r nice(nrow(filter(df, country!="USA" & country!="Russia")))` individuals from LMICs and `r nice(nrow(filter(df, country=="USA" | country=="Russia")))` from the USA and Russia, for a total of `r nice(nrow(df))` respondents.
+
+
+# Statistical Analysis {-}
+
+
+Vaccine acceptance was defined as the percentage of respondents who answered “yes” to the question, “If a COVID-19 vaccine becomes available in [country], would you take it?”. This was calculated combining all other answer options (“No”, “Don’t Know” and “Refuse”) into a single reference category. We estimated this outcome for each study with robust standard errors and employed sampling weights where available.
+
+
+In addition to study-level estimates, we combined data from all studies other than the USA and Russia to calculate an aggregate estimate for all LMIC studies. For these analyses, each included study received equal weight and standard errors were clustered at the study level. Averages in the “All LMICs” group then reflect the expected share across studies. In this combined analysis we also estimated the underlying heterogeneity of vaccine acceptance across studies using the between studies variance estimator $\tau^2$ from a random effects model.
+
+
+We also conducted subgroup analyses by gender, age and education level and reported differences between groups. For the “All LMICs” analyses we calculated the average of differences between subgroups within studies with standard errors clustered at the study level. 
+
+
+We additionally examined reported reasons for COVID-19 vaccine acceptance and hesitancy, as well as the types of actors respondents would trust when making the decision about whether to take a COVID-19 vaccine. Among respondents who expressed willingness to take the vaccine, we asked about several possible reasons why they would take it. For respondents unwilling to take the vaccine, we asked about several possible reasons why they would not take it. Finally, we asked all respondents, regardless of their answers to other questions, whom they would trust most to help them decide whether to get a COVID-19 vaccine. We report estimates of agreement with reasons for vaccine acceptance/hesitancy and trust in actors for individual studies and for the “All LMICs” group.
+
+
+\newpage
+
+
+
+
+# Contributors{-}
+JSo, SW, NMe, AS, NMc, GS, MV and AM are co-first authors. DK, MC, MT, MH, AMM and SO are co-last authors. AMM and SO are also the corresponding authors. 
+DK, AMM, MT, NMe, MC, and MV conceived of the study and provided overall guidance.
+SAb and NMe led the literature search, with input from AS, NMc, SW, AMM, AM and JSo.
+SW, NMe, AS, NMc, MV, GS, AA, SA, BA, AB,EB, CMB, AC, EC, MF, AG, AK, SK, RL, MBN, MP, JSh, JSv, PV, LB, BZ, MC, SAs, AC, AF, AH, MC, MT, and MH oversaw data collection as part of other research efforts.
+SW, NMe, and MT coordinated the project across study samples.
+The following verified the underlying data for individual study samples: EC (Burkina Faso, Colombia, Rwanda, Sierra Leone 1), BA (India), AS and RL (Nigeria), AG and MBN (Uganda 1), CMB and MH (Uganda 2), NMe and MV (Sierra Leone 2), GS (Russia), MF (Mozambique), AF and JSh (Pakistan 1), SAs (Pakistan 2), CV (Nepal), and NMc (USA).
+JSo, GS, MH and SA collated and processed all datasets used for the analysis.
+NMe, MH, AMM, JSo, GS, SW, AS, EC, EB, MT, MV and NMc did the data interpretation with guidance from SO and AM.
+JSo, GS, EC and MH verified final datasets and analysis.
+JSo and GS did the data analysis and produced output figures with input from MH, AMM, DK, SW, EC, MV, NMe and MT.
+MH supervised the data analysis.
+JSo, SW, NMe, AMM, AS, NMc and MV wrote the first draft of the manuscript, with guidance from AM and SO.
+JSo, SW, NMe, AS, NMc, MV, SAb, EB, MP, JSh, PV, BZ, MC, MT, MH, AMM and SO revised the manuscript.
+All authors approved the final version of the manuscript. All authors had full access to all the data used in this study and had final responsibility for the decision to submit for publication.
+
+
+# Data Availability Statement {-}
+Individual participant data (de-identified) that underlie the results reported in this article, analytic code and replication files will be available immediately following publication to no end date for anyone who wishes to access the data and use it for any purpose in a public, open access repository. A replication exercise is available here \url{https://wzb-ipi.github.io/covid_vaccines/replication.html}.
+
+
+# Funding {-}
+<!-- STROBE; 22- Source of funding and the role of the funders for the present study and, if applicable, for the original study on which the present article is based  -->
+
+
+Beyond Conflict, Bill and Melinda Gates Foundation, Columbia University, Givewell.org, Ghent University, HSE University Basic Research Program, International Growth Centre, Jameel Poverty Action Lab Crime and Violence Initiative, London School of Economics and Political Science, Mulago Foundation, NOVAFRICA at the Nova School of Business and Economics, NYU Abu Dhabi, Oxford Policy Management, Social Science Research Council, Trinity College Dublin COVID19 Response Funding, UK Aid, UKRI GCRF/Newton Fund, United Nations Office for Project Services, Weiss Family Fund, WZB Berlin Social Science Center, Yale Institute for Global Health, Yale Macmillan Center, and anonymous donors to IPA and Y-RISE.
+
+
+
+
+
+
+
+
+
+
+# Role of the funding source {-}
+
+
+None of our funders played any role in the collection, analysis, interpretation, writing or decision to submit this article for publication.
+
+
+# Declaration of interests {-}
+We declare no competing interests.
+
+
+---
+nocite: '@*'
+...
+
+
+\newpage
+# References {-}
+
+
+<div id="refs"></div>
+
+
+\newpage
+```{r otherv}
+tab_1b
+```
+
+
+```{=latex}
+\begin{figure}[!ht]
+\caption{Acceptance rates overall and broken down by respondent characteristics \label{fig:mainfigure1}}
+```
+```{r mainfigure1, fig.height=7.5, fig.width = 9, warning = FALSE, dev='tikz', echo = FALSE}
+fig_1
+```
+```{=latex}
+\scriptsize{Figure 1 presents average acceptance of the COVID-19 vaccine across studies and subgroups within studies. For each study, we summarize sampling information in parentheses in the following way: First, we indicate whether the geographic coverage of the sample is national or subnational. If the coverage is subnational we provide further details. Second, we list the number of observations included in the study. In the plot, points represent the estimated percentage of individuals who would take the vaccine. ``No'', ``Don't know'' and ``Refuse'' are taken as a single reference category. Bars around each point indicate a 95\% confidence interval for the estimate. An estimate of average acceptance for all studies in LMICs (excluding USA and Russia) is also shown.}
+\end{figure}
+```
+
+
+```{r yes, results = "asis"}
+tab_reasons_y
+```
+
+
+```{=latex}
+\begin{figure}[!ht]
+\caption{Reasons not to take the vaccine \label{fig:fig2paper}}
+```
+```{r fig2paper, fig.height=7.5, fig.width = 10, warning = FALSE, dev='tikz', echo = FALSE}
+fig_2
+```
+```{=latex}
+\scriptsize{Figure 2 shows the percentage of respondents mentioning reasons why they would not take the COVID-19 vaccine. In the plot, points represent the estimated percentage of individuals that would not take the vaccine or do not know if they would take the vaccine for each possible response option. Bars around each point indicate a 95\% confidence interval for the estimate. An estimated average for all studies in LMICs is also shown. Size of points illustrates the number of observations in each response option. Studies India and Pakistan 2 are not included because they either did not include the question or were not properly harmonized with the other studies.}
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[!ht]
+\caption{Trusted actors and institutions, broken down by expressed willingness to take a COVID-19 vaccine \label{fig:fig3paper}}
+```
+
+
+\newpage
+
+
+```{r fig3paper, fig.height=9, fig.width = 10, dev='tikz', echo = FALSE}
+fig_hist2
+```
+\newpage
+
+
+
+
+```{=latex}
+\scriptsize{Figure 3 shows histograms of actors and institutions respondents say they would trust most to help them decide whether to take the COVID-19 vaccine. Respondents were only permitted to select one most trusted actor or institution. Studies India, Mozambique, Pakistan 1, Pakistan 2 and Uganda 1 are not included because they either did not include the question or were not properly harmonized with the other studies.}
+\end{figure}
+```
+
+
+\clearpage
+
+
+
+
+# Supplementary Appendix {-}
+
+
+## Appendix A: Supplementary tables, figures and results {.unnumbered #appendixd}
+
+
+```{r sampling}
+tab_sampling
+```
+```{r, results = "asis"}
+tab_fig1
+```
+
+
+\newpage
+
+
+
+
+```{r yesall, results = "asis"}
+tab_reasons_y_all
+```
+
+
+\newpage
+
+
+
+
+```{r no, results = "asis"}
+tab_fig2
+```
+
+
+\newpage
+
+
+
+
+```{r trust, results = "asis"}
+tab_trust
+```
+\newpage
+
+
+```{=latex}
+\begin{figure}[!ht]
+\caption{Trusted actors and institutions, broken down by gender \label{fig:genderhist}}
+```
+```{r genderhist, fig.height=9, fig.width = 10, warning = FALSE, dev='tikz'}
+hist_gender
+```
+```{=latex}
+\scriptsize{Figure 4 shows histograms of actors and institutions that respondents say they would trust most to help them decide whether or not to take the COVID-19 vaccine. Respondents were only permitted to select one most trusted  actor or institution. Responses are broken down by acceptance of the COVID-19 vaccine.}
+\end{figure}
+```
+
+
+\pagebreak
+
+
+```{r, results = "asis"}
+dmeans
+```
+
+
+\clearpage
+
+
+```{r, results = "asis"}
+nas
+```
+________________
+
+
+\pagebreak
+
+
+## Appendix B: Question wording and answer options per study {.unnumbered #appendixb}
+
+
+
+
+```{r tabq1}
+tab_question1
+```
+
+
+```{r tabq2}
+tab_question2
+```
+
+
+```{r tabq3}
+tab_question3
+```
+
+
+```{r tabq4}
+tab_question4
+```
+________________
+
+
+
+
+## Appendix C:  Additional contributors {-}
+
+
+<!-- Add here  RAs and others -->
+We thank Sellu Kallon and Sarah Ryan for valuable intellectual contributions and research assistance.
+
+
+IPA would like to thank staff in Burkina Faso, Colombia, Rwanda, Sierra Leone and the United States for their intellectual contributions, research assistance, and support throughout the RECOVR survey: Achille Mignondo Tchibozo, Michael Rosenbaum, Hugo Salas, Filippo Cuccaro, Jean Leodomir Habarimana Mfura, Doug Kirke-Smith, Savanna Henderson, Shahana Hirji, Kyle Holloway, Margarita Cabra.
+
+
+Russia team would like to thank staff at Online Market Intelligence survey agency and Kirill Chmel and Vladimir Zabolotsky for their intellectual contributions and research assistance.
+
+
+\newpage
+
+
+## Appendix D: Sample descriptions {.unnumbered #appendixa}
+
+
+The case history data for all countries in our sample is extracted from the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE) database.^[Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.]
+
+
+### Burkina Faso, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample, Innovations for Poverty Action (IPA){-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+\item First confirmed case: March 9, 2020 
+\item Number of confirmed cases 2,335 as of  October 15, 2020 
+\item Number of deaths:  65 as of October 15, 2020
+\end{itemize}
+
+
+\textbf{Target Population}: A random sample of all adults with mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+
+\textbf{Original Study Design:} N/A
+
+
+\textbf{COVID-19 Survey Design:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share for a two-round panel survey.
+
+
+\emph{Sampling Frame:} All mobile phone numbers in Burkina Faso.
+
+
+\emph{Survey Dates:} October 15 to December 4, 2020 (Round 1 June 6-15, 2020)
+
+
+\emph{Sample size, tracking and attrition:}  Sample includes 977 respondents from the second round of a panel. In the first round conducted between June 6 to 15, 2020, 1,356 individual surveys were contacted through Random Digit Dialing (RDD) from the sampling frame of all mobile phone numbers in Burkina Faso. 2,313 working numbers yielded 1,383 eligible respondents for a completion rate of 98\% of eligible respondents.
+
+
+\emph{Sampling Weights:} Post-stratification weights are computed to adjust for differential attrition between the first and second rounds of the RDD panel, weighting on gender, region, and educational attainment.
+
+
+\emph{IRB Approval:} This research was approved via IPA IRB Protocol 15608, and the Burkina Faso Institutional Ethics Committee for Health Sciences Research, approval A13-2020.
+
+
+
+
+### Colombia, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample, Innovations for Poverty Action (IPA) {-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+\item First confirmed case: March 6, 2020
+\item Number of confirmed cases:  456,689 as of August 15, 2020
+\item Number of deaths:  14,810 as of August 15, 2020
+\end{itemize}
+
+
+\textbf{Target Population}: A random sample of all numerically possible mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+
+\textbf{Original Study Design:} N/A
+
+
+\textbf{COVID-19 Survey Design:}
+
+
+\emph{Sampling Frame:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share.
+
+
+\emph{Survey Dates:} August 15-25, 2020 (Round 1 May 8-15, 2020)
+
+
+\emph{Sample size, tracking and attrition:} Sample includes 1,012 respondents contacted in the second round of a panel of 1,507.
+
+
+\emph{Sampling Weights:} Post-stratification weights are computed to adjust for differential attrition between the first and second rounds of the RDD panel, weighting on gender, region, and educational attainment.
+
+
+\emph{IRB Approval:} This research was approved via IPA IRB Protocol 15582.
+
+
+
+
+
+
+
+
+### India, Coping with COVID-19 in Slums: Evidence from India Subnational sample, Nova School of Business and Economics, The Institute for Fiscal Studies, University of St. Andrews {-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+\item First confirmed case: January 30, 2020
+\item Number of confirmed cases: 198,370 as of June 1, 2020 
+\item Number of deaths: 5,608 as of June 1, 2020 
+\end{itemize}
+
+
+
+
+\textbf{Target Population}:  Random subset of slum populations in Lucknow and Kanpur, Uttar Pradesh, India. Socio-economic variables are only collected for a representative sample of the population relying on community toilets or open defecation to fulfil their sanitation needs.
+
+
+\textbf{Original Study Design:} Randomized controlled trial, with complete census of households within 142 slums (September to December 2017), and a series of household and caretaker surveys, objective measurements, incentivized behavioural measurements, and a Structured Community Activity, collected for a sub-set of 100 slums between April 2018 and September 2019.
+
+
+\emph{Intervention:} Catchment areas of CTs were randomly allocated to two interventions. The first intervention aimed at community toilet improvements by offering caretakers the choice of a grant to be spent for improvements in the facility. Following the grant, caretakers were offered a large financial reward conditional on the cleanliness of the facility. The second intervention added to this CT improvement awareness creation among potential users through face-to-face information sessions, leaflets, monthly reminders using voice messages sent to mobile phones, and posters hung in the CTs.
+
+
+<!-- \textbf{COVID-19 Survey Design:}  -->
+
+
+\emph{Sampling Frame:} A two-step sampling was applied, first, study households from the main study sample were sampled, then households from the whole slum population were added.
+
+
+\emph{Survey Dates:} 
+Baseline: June to July 2020, Follow-up 1: October toNovember 2020, Follow-up 2:  December 16, 2020 toJanuary 18, 2021.
+
+
+\emph{Sample size, tracking and attrition:} 3,991 households, with a mean of 28 households per cluster (142). Non-response Baseline: 25%, Attrition rate Baseline to Follow-up (1 and 2): 13%, Randomly selected replacement households for Follow-up (1 and 2): 1,277.
+
+
+\emph{Sampling Weights:} Included
+
+
+\emph{IRB Approval:} Approval was secured from London School of Economics (REC ref. 1132). The pre-analysis plan was registered on the AEA RCT registry (RCT ID AEARCTR-0006564).
+
+
+
+
+### Mozambique Subnational sample, International Growth Center, Nova School of Business and Economics {-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+\item First confirmed case: March 22, 2020
+\item Number of confirmed cases:  12,777 as of October 30, 2020 
+\item Number of deaths:  91 as of October 30, 2020
+\end{itemize}
+
+
+\textbf{Target Population}: Microentrepreneurs in urban markets of Maputo and household heads from the province of Cabo Delgado.
+
+
+\textbf{Original Study Design:} Initial data were collected in-person in two different studies. For microentrepreneurs in Maputo, the data were collected between October 2013 and April 2014 (baseline), and between July and November 2015 (endline).^[Original study: http://catiabatista.org/bsv_mm_urban.pdf] For household heads in Cabo Delgado, the data were collected in-person between August and September 2016 (baseline), and between August and September 2017 (endline).^[Original study: https://www.aeaweb.org/articles?id=10.1257/aer.20190842] 
+
+
+\emph{Intervention:} The first study was dedicated to analyzing the impacts of interventions targeting microentrepreneurs in urban markets on financial inclusion and literacy. The second study focused on the role of information to counteract the political resource curse after a substantial natural gas discovery.
+
+
+<!-- \textbf{COVID-19 Survey Design:} -->
+
+
+\emph{Sampling Frame:} The first initial sample was selected by in-field random sampling in 23 urban and periurban markets in Maputo and Matola. Stratification was based on the gender of the respondent and on the type of establishment (stall vs. store). The second initial sample was selected to be representative of 206 communities in the province of Cabo Delgado, randomly drawn from the list of all 421 polling locations in the sampling frame, stratified on urban, semiurban, and rural areas. This survey in this paper was done by phone.
+
+
+\emph{Survey Dates:} October 30 to November 21, 2020 (Maputo) and  November 6 to November 30, 2020 (Pemba).
+
+
+\emph{Sample size, tracking and attrition:} 554 microentrepreneurs from Maputo and 308 households from Cabo Delgado.
+
+
+\emph{Sampling Weights:} N/A
+
+
+\emph{IRB Approval: The approval was secured from Universidade Nova de Lisboa on July 14, 2020.
+
+
+
+
+### Nepal,  Western Terai Panel Survey (WTPS) Subnational sample, Yale University, Yale Research Initiative on Innovation and Scale (Y-RISE){-}
+
+
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+\item First confirmed case: January 23, 2020
+
+
+\item Number of confirmed cases:  233,452 as of December 1, 2020 
+\item Number of deaths:   1,529 as of December 1, 2020
+\end{itemize}
+
+
+\textbf{Target Population}: Rural households in the districts of Kailali and Kanchanpur.
+
+
+\textbf{Original Study Design:} Initial baseline data was collected in-person in July of 2019, and 5 rounds of phone survey data were collected between August 12, 2019 and January 4, 2020.
+
+
+\emph{Sampling Frame:} The phone survey sample includes 2,636 rural households in the districts of Kailali and Kanchanpur, which represent the set of households that responded to phone surveys from an original sample of 2,935 households. This sample was constructed by randomly sampling 33 wards from 15 of the 20 sub-districts in Kailali and Kanchanpur and selecting a random 97 villages from within those wards. At the time of baseline data collection in July of 2019, 7 of these 97 villages were dropped from the sample due to flooding. Households belong to the bottom half of the wealth distribution in these villages, as estimated by a participatory wealth ranking exercise with members of the village.
+
+
+\emph{Survey Dates:}December 1st - December 11, 2020
+
+
+\emph{Sample size, tracking and attrition:}  1,392 households
+
+
+<!--  \emph{Sampling Weights:} Included -->
+
+
+\emph{IRB Approval:} This research was approved via Yale University IRB Protocol 2000025621.
+
+
+
+
+
+
+
+
+### Nigeria Subnational sample, WZB Berlin Social Science Center, University of Illinois Chicago{-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+\item First confirmed case: February 28, 2020
+\item Number of confirmed cases: 65,693 as of November 18, 2020 
+\item Number of deaths:  1,163 as of November 18, 2020 
+\end{itemize}
+
+
+\textbf{Target Population}: Christian and Muslim men and women, age 18 and above, living in Kaduna state, Nigeria.
+
+
+\textbf{Original Study Design}:  Initial data was collected from a subset of the sample in December 2019 (in person survey) and July - Aug 2020 (phone survey) as part of an experiment testing the effects of a brief radio program on inter-religious animus. A random walk procedure and random sampling were used within households to recruit a representative sample of adults in Kaduna town. The rest of the sample was recruited for the study in Aug 2020 by purchasing phone lists for residents of Kaduna State.
+
+
+\emph{Intervention:} The study examines the effects of a radio program and a TV drama on  inter-religious animus. The subset of  the sample in the radio study was randomly assigned to listen to a brief radio program on one of the following topics: (1) an inter-religious storyline, (2) an intra-religious storyline, and (3) a message about maintaining safe health practices. All respondents in the sample participated in a study examining the effect of viewing an inter-religious storyline unfolding over a full season of a popular TV drama, Dadin Kowa. The season aired from Aug - Oct 2020. A third of the sample were encouraged to watch Dadin Kowa, a third were encouraged to watch the TV station Africa Magic Hausa at the same time Dadin Kowa aired, and a third were in the treatment-as-usual group. All participants received a weekly incentivized SMS quiz from Aug - Oct 2020.
+
+
+\textbf{COVID-19 Survey Design:} This survey is not primarily about COVID-19, but was designed as an endline survey to follow the TV drama intervention described above. The goal of this survey is to measure a range of attitudinal outcomes related to Christian-Muslim relations (including prejudice, intergroup threat perceptions, dehumanization, and support for the use of violence, among others). We included nine of the standardized COVID-19 vaccine-related questions collected specifically for this vaccine acceptance study in the final module of the endline survey.
+ 
+\emph{Sampling Frame:} 950 respondents in the sample were recruited in person through a random sampling procedure in the Kaduna metropolitan area (pre-COVID). The remaining 1,700 respondents were recruited into the study over the phone from lists of phone numbers of Kaduna state residents that were purchased from a private vendor.
+ 
+\emph{Survey Dates:} November 18 - December 18, 2020.
+ 
+\emph{Sample size, tracking and attrition:} All 1,834 individuals who completed the endline survey are included.
+ 
+\emph{Sampling Weights:} N/A
+
+
+\emph{IRB Approval:} This study was reviewed by the IRB at the University of Pennsylvania (Protocol 834548), and it was determined on November 20, 2019 to meet the criteria for review exemption (45 CFR 46.104, category \#2).
+
+
+
+
+### Pakistan {-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+\item March 6: First confirmed case: February  26, 2020 
+\item Number of confirmed cases:  271,887 as of July 24, 2020 
+\item Number of deaths:  5,787 as of July 24, 2020 
+\end{itemize}
+
+
+
+
+### Pakistan, Economic Vulnerability Assessment (EVA) Subnational sample, Sheikhupura Police Study Sample, Institute of Development and Economic Alternatives, Lahore University of Management Science, London School of Economics, Princeton University {-}
+
+
+\textbf{Target Population}: A representative sample of adults from 108 of 151 police beats in Sheikhupura and Nankana districts of Punjab Province.
+
+
+\textbf{Original Study Design:} N/A
+
+
+\textbf{COVID-19 Survey Design:} The EVA survey involved calls to all households in the stratified random sample for the policing study midline survey.
+
+
+\emph{Sampling Frame:} Households in Sheikhupura and Nankana districts.
+
+
+\emph{Survey Dates:} July 24 to September 9, 2020 
+
+
+\emph{Sample size, tracking and attrition:}  Sample includes 1,473 respondents.
+
+
+\emph{Sampling Weights:} Post-stratification weights are computed to adjust for the sampling process, which involved stratifying first on 27 police stations, then within each police station on beats, then PPS sampling within beats using Asiapop population data.
+
+
+\emph{IRB Approval:} This research was approved via Princeton University IRB Protocol 7250.
+
+
+### Pakistan, Economic Vulnerability Assessment (EVA) Subnational sample {-}
+
+
+\textbf{Target Population}: All possible mobile phone numbers (in the province of Punjab) generated based on the local mobile phone number structure in Pakistan.
+
+
+\textbf{Original Study Design:} N/A
+
+
+\textbf{COVID-19 Survey Design:} The EVA survey involved making calls to individuals in Punjab based on random digit dialing.
+
+
+\emph{Sampling Frame:} Individuals with mobile phones in Punjab.
+
+
+\emph{Survey Dates:}  September 2 to October 13, 2020
+
+
+\emph{Sample size, tracking and attrition:}  Sample includes 1,492 respondents.
+
+
+\emph{Sampling Weights:} N/A.
+
+
+\emph{IRB Approval:} This research was approved by Lahore University of Management Sciences IRB Protocol LUMS-IRB/07012020SA.
+
+
+### Rwanda, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample, Innovations for Poverty Action (IPA){-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+ \item First confirmed case: March 14, 2020
+ \item Total cases:  5,017 as of October 22, 2020 
+\item Total deaths:  34 as of October 22, 2020 
+\end{itemize}
+
+
+\textbf{Target Population}: A random sample of all numerically possible mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+
+\textbf{Original Study Design:} N/A
+
+
+\textbf{COVID-19 Survey Design:}Phone survey
+
+
+ \emph{Sampling Frame:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share.
+
+
+\emph{Survey Dates:} October 22 to November 5, 2020 (Round 1 June 4 -12, 2020)
+
+
+\emph{Sample size, tracking and attrition:}Sample includes 1,355 respondents contacted in the second round of a panel of 1,480.
+
+
+\emph{Sampling Weights:} Post-stratification weights are computed to adjust for differential attrition between the first and second rounds of the RDD panel, weighting on gender, region, and educational attainment.
+
+
+\emph{IRB Approval:} This research was approved via IPA IRB Protocol 15591, Rwanda National Institute for Scientific Research permit No.0856/2020/10/NISR; and Rwanda National Ethics Committee approval No.16/RNEC/2020.
+
+
+
+
+
+
+
+
+### Russian Federation, Research on COVID-19 in Russia’s Regions (RoCiRR) Subnational  sample, International Center for the Study of Institutions and Development (HSE University, Moscow, Russia) and Economics Department of Ghent University, WZB Berlin Social Science Center, Columbia University{-}
+
+
+\textbf{COVID-19 Experience}
+\begin{itemize}
+\item First confirmed case: January 31, 2020
+\item Number of confirmed cases: 1,720,063 as of November 6, 2020 
+\item Number of deaths:  29,654 as of November 6, 2020 
+\end{itemize}
+
+
+\textbf{Target Population}: Adult internet users who reside in one of 61 federal subjects (federal cities, oblasts, republics, krais and autonomous okrug) of Russia. The regions included in the study are Republics: \emph{Bashkortostan, Karelia, Komi, Mariy El, Mordovia, Tatarstan, Udmurtia, Chuvashia}. Krais: \emph{Altai, Krasnodarsky, Krasnoyarsky, Permsky, Primorsky, Stavropolsky, Khabarovsky}. Oblasts: \emph{Arkhangelsk, Astrakhan, Belgorod, Bryansk, Vladimir, Volgograd, Vologda, Voronezh, Ivanovo, Irkutsk, Kaliningrad, Kaluga, Kemerovo, Kirov, Kostroma, Kurgan, Kursk, Leningrad, Lipetsk, Moscow, Murmansk, Nizhny Novgorod, Novgorod, Novosibirsk, Omsk, Orenburg, Orel, Pskov, Penza, Rostov, Ryazan, Samara, Saratov, Sverdlovsk, Smolensk, Tambov, Tver, Tomsk, Tula, Tyumen, Ulyanovsk, Chelyabinsk, Yaroslavl}. Other: \emph{Moscow, Saint Petersburg, Khanty-Mansiysk Autonomous Okrug -- Ugra}. The remaining 24 federal subjects were excluded from the study due to inability to enroll sample size with desired characteristics (sample size, age, gender and education group composition).
+
+
+\textbf{Original Study Design:} N/A 
+
+
+\textbf{COVID-19 Survey Design:} The study was designed to measure the impact of pandemics on Russians, mostly those who live in cities with more than 100,000 residents. It contains a number of questions on the personal experience, norms and values, trust in government institutions, provision of social services, and mass media use. Region and geolocality of every respondent are recorded.
+
+
+\emph{Sampling Frame:} In total 25,558 respondents received the module on vaccine acceptance. The sample was enrolled from the pool of Russian online survey company OMI (Online Market Intelligence). The sampling was specifically targeted at having a minimum of 150 respondents in each of the 61 regions and including respondents from all the main age and gender groups within each region. Respondents were also selected so that at least 40% of respondents did not have higher education, in accordance with higher education rates in Russia. Out of 25,558 recruited respondents, 22,125 completed the survey. Among 22,125 respondents who completed the survey, 20,821 were enrolled from the general pull of the survey company respondents, while the remaining 1,304 respondents were enrolled among residents of cities with populations below 100,000 and rural areas.
+
+
+\emph{Survey Dates:} November 6 - December 1, 2020
+
+
+\emph{Sample size, tracking and attrition:} 22,125 respondents who completed the survey with the vaccine acceptance module included.
+
+
+\emph{Sampling Weights:} Post-stratification weights are computed to match marginal population distributions of age, gender and education with target proportions coming from the 2019 Yearbook and 2015 Microcensus released by Russian Federal Bureau of National Statistics (Rosstat).
+
+
+\emph{IRB Approval:} This study was approved via Columbia University IRB Protocol IRB-AAAT4453. 
+
+
+
+
+### Sierra Leone {-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+        \item First confirmed case: March 20, 2020
+        \item Total cases:  2,252 as of October 2, 2020 and 3,030 as of January 20, 2021 
+        \item Total deaths:  72 as of October 2, 2020 and 77 as of January 20, 2021 
+\end{itemize}
+
+
+#### Sierra Leone, Research for Effective COVID-19 Responses (RECOVR) National RDD Sample, Innovations for Poverty Action (IPA) {-}
+
+
+\textbf{Target Population}: A random sample of all numerically possible mobile phone numbers in the country, based on national communications authority number allocation plans.
+
+
+\textbf{Original Study Design:} N/A
+
+
+\textbf{COVID-19 Survey Design:} Numbers were called via random digit dialing (RDD), stratified by mobile network operator market share
+
+
+ \emph{Sampling Frame:} All active mobile phone numbers in Sierra Leone.
+
+
+\emph{Survey Dates:} October 2-19, 2020 (Round 1 May 27 to June 15, 2020)
+
+
+\emph{Sample Size, tracking and Attrition:} Sample includes 1,070 respondents contacted in the second round of a panel of 1,304.  
+
+
+\emph{Sampling Weights:} Post-stratification weights are computed to adjust for differential attrition between the first and second rounds of the RDD panel, weighting on gender, region, and educational attainment.
+
+
+\emph{IRB Approval:} This research was approved via IPA IRB Protocol 15592, and Sierra Leone Ethics and Scientific Review Committee approval (no approval number, letter available upon request).
+
+
+#### Sierra Leone, Towns that are Candidates for Rural Electrification Nation-wide sample, International Growth Centre (IGC), Wageningen University & Research, Yale Research Initiative on Innovation and Scale (Y-RISE), WZB Berlin Social Science Center and Columbia University {-}
+
+
+\textbf{Project Title:} Sierra Leone Rural Electrification (SLRE)
+
+
+\textbf{Target Population}: Households in 195 rural towns across all 14 districts of Sierra Leone. Of these, 97 villages were selected to benefit from an electrification program.
+
+
+\textbf{Original Study Design:} Initial baseline data was collected during late 2019 and early 2020 as part of a study to assess the impact of Rural Electrification in rural towns in Sierra Leone.
+
+
+\emph{Intervention:} The Government of Sierra Leone (GoSL) in collaboration with the United Nations Office for Project Services (UNOPS) and international donors is implementing the Rural Renewable Energy Project (RREP). In its first wave, during 2017, the project provided stand-alone solar photovoltaic powered mini-grids to 54 communities across the country. Construction of mini-grids in a further 43 towns is ongoing. In RREP communities, engineers construct 6kW--36kW power mini-grids that provide reliable power year-round. Electricity is free for schools and clinics. Residential and commercial users can acquire connections from commercial operators.
+
+
+ \emph{Village Sampling Frame:} Household data was collected in 195 towns across all 12 districts of Sierra Leone. The GoSL selected 97 towns with (planned) mini-grids. We used Propensity Score Matching to select 98 control communities. Within communities, respondents were randomly selected from a census roster stratified by occupation status of farmers, business owners and other occupations [47 percent, 47 percent and  7 percent]. In each village, the intended sample was 43 households (20 farmers, 20 businesses, 3 others). Data was collected during June--July (108 communities) and November--December 2019 (87 communities). If a household on the sampling list was not available on the village visit day, we had a randomly sampled list of replacement households to survey. The replacement household would be the same occupation as the sampled household would have been so the sample ratio of 20-20-3 still held in each community.
+
+
+\textbf{COVID-19 Survey Design:}  The goal was to assess households’ degree of economic vulnerability in the face of the COVID-19 pandemic. 
+
+
+\emph{Sampling Frame:} The COVID-19 survey data comprises 2,110 respondents from 186 towns from the original baseline survey.  Phone surveys were attempted to all 195 rural communities from the baseline survey.  The total baseline household sample comprised 7047 respondents. We recontacted all baseline respondents that listed a phone number (4,594 respondents) and obtained informed consent for the phone survey. We implemented several waves of the phone survey, recontracting a respondent about every month. In wave 7, we added questions related to Vaccine Acceptability.^[The data was first reported in https://www.theigc.org/wp-content/uploads/2020/05/Meriggi-et-al-Data-Brief-2020.pdf].
+
+
+\emph{Survey Dates:} October 7, 2020 and January 20, 2021 (earlier rounds included Wave 1: April 29-May 15; Wave 2: May 15-June 4; Wave 3: June 5-June 17; Wave 4: June 17-June 30; Wave 5: July 1-August 8; Wave 6: August 19-October 1). The median survey time was 33 minutes.
+
+
+\emph{Sample size, tracking and attrition:} Data collection took place between October 7 and January 20, 2021with 2,110 respondents, in 186 towns for a tracking rate of 46 percent. 
+
+
+\emph{Sampling Weights:} None
+
+
+\emph{IRB Approval:} Approval was secured from Sierra Leone Ethics and Scientific Review Committee (SLERC 2904202) and Wageningen University (24062020).
+
+
+
+
+### Uganda {-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+        \item First confirmed case: March 21, 2020
+        \item Total cases:  741 as of June 18, 2020 and 6,468 as of September 21, 2020         \item Total deaths:  0 as of June 18, 2020 and 63 as of September 21, 2020 
+\end{itemize}
+
+
+#### Uganda Subnational sample, International Growth Center, Trinity College Dublin, Stockholm School of Economics and Misum, Institute for International Economic Studies, Stockholm University  {-}
+
+
+\textbf{Target Population}: Women from semi-rural and rural villages across 13 districts in Uganda (Iganga, Kayunga, Mbale, Mityana, Apac, Dokolo, Gulu, Adjumani, Koboko, Maracha, Nebbi, Soroti, Kumi).
+
+
+\textbf{Original Study Design:} Initial baseline data was collected in 2016 as part of a large cluster randomized controlled trial, with the aim of selecting households likely to have children during the study period. Four criterias for selection were thus used, in descending order of importance: the household has a woman that is currently pregnant, or aged 16-30 years old,  with a young child less than three years old, and/or married (formally or informally). In each household, the respondent was chosen as the female household head or the primary female health care giver of the household if the household head could not be found. 
+
+
+<!-- \emph{Intervention:} IF APPLICABLE -->
+
+
+\textbf{COVID-19 Survey Design:} The data was collected through multiple rounds of phone surveys. The variable measuring age was constructed by approximation, using the baseline data from 2016 and adding 4 years to the 2016 measure. When the baseline respondent was replaced, the initial age information was deleted. 
+
+
+\emph{Sampling Frame:} Households were selected within 500 clusters (the village of the household).
+
+
+\emph{Survey Dates:} September 21 to December 06, 2020.
+
+
+\emph{Sample size, tracking and attrition:} Out of 2,743 respondents,  1752 were included, provided that they answered the main question about vaccine uptake.
+
+
+\emph{Sampling Weights:} None.
+
+
+<!-- \emph{IRB Approval:} X -->
+
+
+
+
+### Uganda Subnational sample, WZB Berlin Social Science Center and Columbia University, NYU Abu Dhabi, Innovations for Poverty Action (IPA)  {-}
+
+
+\textbf{Target Population:} All residents of Kampala who are Ugandan citizens, above the age of 18, and agree in principle to attend a short citizen consultative meeting.
+
+
+\textbf{Original Study Design:} Baseline data was collected between July and October 2019 for an intervention that randomized citizen attendance to a set of 188 consultative meetings organized across Kampala. The meetings were organized to collect citizen preferences for the design of a forthcoming municipal citizen charter. The study also aimed to assess patterns of political inequality in meeting participation, dynamics, and outcomes, as well as study the subsequent effects on prosociality of being incorporated in this participatory process. 1/3 of the sample was randomly allocated to control, while 2/3 of respondents were invited to attend a consultative meeting. The consultations took place between November 2019 and February 2020 across Kampala divisions.
+
+
+\emph{Intervention:} The intervention consisted of attendance at the consultative meeting organized a few months after baseline data collection. A further randomization allocated ½ of the invited participants to a meeting moderated by a local bureaucrat, while the remaining ones attended a meeting moderated by a neutral discussion leader.
+
+
+\textbf{COVID-19 Survey Design:} The COVID-19 survey sample comprises the 2,189 respondents to the baseline who were selected on the basis of their residence in the city. Having received permission to re-contact these individuals, we coordinated a 3-wave panel throughout the summer and fall of 2020, with respondents contacted via phone. The goal was to assess households’ degree of economic vulnerability in the face of the COVID-19 pandemic and respondents’ evaluations of performance of political actors in tackling the pandemic.
+
+
+\emph{Sampling Frame:} The 2,189 respondents to the baseline were randomly selected from a sampling frame of all buildings in Kampala, for which information about their geographical coordinates was available. After randomly selecting a set of candidate structures, interviewers sampled respondents from the subset of structures that were residential.
+
+
+\emph{Survey Dates:} Wave 1: June 18--July 23. Wave 2: September 4--29. Wave 3: November 23--December 12. 
+
+
+\emph{Sample size, tracking and attrition:} Of the 2,189 respondents which we aimed to contact, we were able to reach 1,333 in Wave 1, 1,289 in Wave 2, and 1,366 in Wave 3. Wave 3 contained the COVID-19 vaccine module presented in this analysis.
+
+
+\emph{Sampling Weights:} None.
+
+
+\emph{IRB Approval:} The study was approved by IPA Global IRB (protocol number 15018) on May 29, 2020; WZB Berlin Social Science Center Ethics Review Board (protocol number 2020/0/91) on June 10, 2020;  NYU Abu Dhabi IRB (protocol number HRPP-2020-64) on May 27, 2020; MIT Committee on the Use of Humans as Experimental Subjects (protocol number 2005000155) on June 3, 2020; and by the Mildmay Uganda Research Ethics Committee (protocol number 0604-2019) on June 11, 2020.
+
+
+
+
+### United States of America Nation-wide sample, WZB Berlin Social Science Center, Cornell University, Tufts University {-}
+
+
+\textbf{COVID-19 Experience}
+
+
+\begin{itemize}
+        \item First confirmed case: January 20, 2020
+        \item Total cases:  14,499,637 as of December 4, 2020 
+        \item Total deaths:  281,678 as of December 4, 2020 
+\end{itemize}
+
+
+\textbf{Target Population}: Nation-wide sample of adult internet users recruited through the market research firm Lucid.
+
+
+
+
+\textbf{Original Study Design:} N/A
+
+
+\emph{Intervention:} N/A
+
+
+\textbf{COVID-19 Survey Design:}This survey was part of a panel study on attitudes toward COVID-19 technologies and public health surveillance.
+
+
+\emph{Sampling Frame:} The Lucid Marketplace is an automated marketplace that connects researchers with willing online research participants. Lucid partners with a network of companies that maintain relationships with research participants by engaging them with research opportunities. While Lucid does not provide probability samples of the U.S. adult population, its quota samples approximate the marginal distributions of key demographic characteristics. Recent validation exercises have found that Lucid samples approximate nationally representative samples in terms of demographic characteristics and survey experiment effects.^[See for instance: https://journals.sagepub.com/doi/10.1177/2053168018822174] 
+
+
+\emph{Survey Dates:} December 4-5, 2020
+
+
+\emph{Sample size, tracking and attrition:} 1,959 individual online surveys. In the main question regarding intention to take the vaccine, approximately 10% of respondents (184) did not answer 
+\emph{Sampling Weights:}  Post-stratification weights are computed to match marginal population distributions of income, age, education, gender, race and region among the US adult population, with target proportions based on the 2018 American Community Survey.
+
+
+\emph{IRB Approval:} This study received approval from the Cornell University IRB under Protocol #2004009569.
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+\newpage
+<!-- 
+
+
+## Population description
+
+
+In this Appendix section we describe each sample in the study. Table XXX reports summary statistics for each sample.
+When possible, samples are compared to national averages based on Living Standards Measurement Study (LSMS) surveys for random digit dialing surveys and sampling frame summary statistics where available for subpopulation surveys.
+
+
+
+
+<!-- 
+```{r reptabcol}
+tab_sum_col
+```
+```{r reptabrow}
+tab_sum_row
+```
+-->

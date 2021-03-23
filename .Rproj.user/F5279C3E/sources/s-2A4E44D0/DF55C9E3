@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/covid_vaccines_nmed/paper.Rmd",
     "project_path": "paper.Rmd",
     "type": "r_markdown",
-    "hash": "1612096777",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1616516913529.0,
@@ -12,8 +12,8 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "156,3",
-        "scrollLine": "143",
+        "cursorPosition": "1,116",
+        "scrollLine": "0",
         "last_setup_crc32": "2A4E44D0ba542050"
     },
     "folds": "",

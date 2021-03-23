@@ -966,7 +966,7 @@ dfs <- list(col, bfa, ind, moz, pak_1, pak_2, sle_2, uga, uga_1, rwa, sle_1, nga
 
 ## Puts cleaned dfs into a single df. All NAs are considered NA (recoded are explicit "Refuse" and "Don't know")
 
-vars <- readxl::read_excel("dictionary.xlsx") %>% pull(outcome)
+vars <- readxl::read_excel("2_input_data/dictionary.xlsx") %>% pull(outcome)
 
 df <- 
   dfs %>% 

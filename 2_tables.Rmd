@@ -332,6 +332,7 @@ readxl::read_excel("2_input_data/studies_info.xlsx", sheet = "sample") %>%
   kableExtra::column_spec(2, width = "12em")  %>%
   kableExtra::column_spec(3, width = "30em")
 ```
+
 ## Main Results: Acceptance Rates (disaggregated by group)
 
 ### Figure
@@ -1872,4 +1873,41 @@ knitr::kable(
     general = "This table presents summarys statistics for our data and compares it with estimates from other sources of data. Data for Russia comes from census data from the Statistical Agency. For the USA, we use data from the 2019 American Community Survey. For all other countries, the Wellcome Global Monitor 2018 was used. Statistics for our surveys are not weighted, while estimates from benchmark sources are obtained using sampling weights.") %>%
   kableExtra::column_spec(1:8, width = "5em") 
 
+```
+
+## Invariance to aggregation at country level
+
+```{r}
+df_country <- 
+  df %>% 
+  filter(!is.na(take_vaccine_num)) %>%
+  filter(!(country %in% c("USA", "Russia"))) %>%
+  mutate(cluster_1 = country,
+         cluster_2 = recode(country, 
+                          "Pakistan 1" = "Pakistan",
+                          "Pakistan 2" = "Pakistan",
+                          "Sierra Leone 1" = "Sierra Leone",
+                          "Sierra Leone 2" = "Sierra Leone",
+                          "Uganda 1" = "Uganda",
+                          "Uganda 2" = "Uganda",
+                          )) %>%
+  group_by(country) %>% mutate(weight_1 = weight/sum(weight)) %>% ungroup() %>%
+  group_by(cluster_2) %>% mutate(weight_2 = weight_1/sum(weight_1)) %>% ungroup() 
+
+# Inspect weights 
+df_country %>% group_by(country) %>% summarize(w1 = sum(weight_1), w2 = sum(weight_2)) %>% kable
+
+unit_check <- 
+  list(
+    study = lm_robust(data = df_country, 
+              formula = take_vaccine_num ~ 1, cluster = cluster_1,
+              weight = weight_1, se_type = "stata"),
+    
+    country = lm_robust(data = df_country, 
+              formula = take_vaccine_num ~ 1, cluster = cluster_2,
+              weight = weight_2, se_type = "stata")) %>%
+  
+  lapply(tidy) %>% bind_rows(.id = "Unit")
+
+unit_check %>% kable(digits = 2)
 ```

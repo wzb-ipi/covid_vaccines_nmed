@@ -1,3 +1,0 @@
-"0","# Read in studies file with information by countries especially ids"
-"0",""
-"0","studies <- read_excel(""2_input_data/studies_info.xlsx"", sheet = ""sample"")"

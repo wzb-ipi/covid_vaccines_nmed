@@ -1,16 +1,16 @@
----
-title: 'COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries, and Implications for Messaging: Replication Code'
-date: "30 April 2021"
-output:
-  html_document:
-    number_sections: yes
-    theme: cosmo
-    code_folding: hide
-    toc: yes
-  bookdown::html_document2: default
----
-
-```{r setup3, include=FALSE}
+#' ---
+#' title: 'COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries, and Implications for Messaging: Replication Code'
+#' date: "30 April 2021"
+#' output:
+#'   html_document:
+#'     number_sections: yes
+#'     theme: cosmo
+#'     code_folding: hide
+#'     toc: yes
+#'   bookdown::html_document2: default
+#' ---
+#' 
+## ----setup3, include=FALSE----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 if (!require(pacman)) install.packages("pacman")
@@ -23,16 +23,16 @@ options(knitr.kable.NA = '.')
 
 base_font_size <- 12
 
-```
 
-
-# Set up
-
-This code takes cleaned and aggregated data as input. Cleaning and aggregation is done in `1_cleaning.Rmd`.
-
-## Helper functions
-
-```{r}
+#' 
+#' 
+#' # Set up
+#' 
+#' This code takes cleaned and aggregated data as input. Cleaning and aggregation is done in `1_cleaning.Rmd`.
+#' 
+#' ## Helper functions
+#' 
+## -----------------------------------------------------------------------------
 
 # The helper renormalizes weights so that each study gets the 
 # same total weight even if they are missing data
@@ -111,11 +111,11 @@ age_analysis <- function(df, reason, num = "Yes", filter_by=NA){
                 weight = weight, se_type = "stata"), .groups = "drop")
 }
 
-```
 
-## Final cleaning and harmonization of weights
-
-```{r df2}
+#' 
+#' ## Final cleaning and harmonization of weights
+#' 
+## ----df2----------------------------------------------------------------------
 
 # Call data created in 1_cleaning.Rmd
 df <- readr::read_csv("2_rep_data/combined.csv", guess_max = 30000)
@@ -163,15 +163,15 @@ df2 <-
     cluster = if_else(group == "All", 
                       gsub(pattern = " ", replacement = "_", x = tolower(country)), 
                       cluster)) 
-```
 
-## Data checks
-
-Checks on data structure. Note `n`, missingness, presence of data on weights or clusters. 
-
-### Data structure
-
-```{r}
+#' 
+#' ## Data checks
+#' 
+#' Checks on data structure. Note `n`, missingness, presence of data on weights or clusters. 
+#' 
+#' ### Data structure
+#' 
+## -----------------------------------------------------------------------------
 
 df %>% group_by(country) %>%
   summarize(n = n(), 
@@ -187,9 +187,9 @@ df %>% group_by(country) %>%
         caption = "Observations, missingness patterns, data structure. Column .var is the share missing for variable var.", booktabs = TRUE, linesep = "", format.args = list(big.mark = ",", 
   scientific = FALSE))
 
-```
 
-```{r, include=FALSE}
+#' 
+## ---- include=FALSE-----------------------------------------------------------
 
 nas <- df %>% group_by(country) %>%
   summarize(n = n(),
@@ -227,34 +227,34 @@ df %>% group_by(country) %>%
     general = "Table 9 show the percentage of observations that are not missing values for each variable included in Figure 1.",
     threeparttable = T)
 
-```
 
-
-### Age distribution
-
-```{r, fig.height = 6, fig.width = 6}
+#' 
+#' 
+#' ### Age distribution
+#' 
+## ---- fig.height = 6, fig.width = 6-------------------------------------------
 df %>% 
   select(country, age) %>%
   gather(category, value, -country) %>%
   mutate(value = as.numeric(value)) %>%
   ggplot(aes(value)) + geom_density() + facet_wrap(~country, ncol = 3)
-```
 
-### Gender, education distribution
-
-```{r, fig.height = 13, fig.width = 6}
+#' 
+#' ### Gender, education distribution
+#' 
+## ---- fig.height = 13, fig.width = 6------------------------------------------
 df %>% 
   select(country, gender, educ) %>%
   gather(category, value, -country) %>%
     ggplot(aes(value)) +  geom_bar() + facet_grid(country ~ category, scales = "free")
  
-```
 
-# Tables and Figures
-
-## Table 1: Vaccine data from WGM, WHO
-
-```{r tab1}
+#' 
+#' # Tables and Figures
+#' 
+#' ## Table 1: Vaccine data from WGM, WHO
+#' 
+## ----tab1---------------------------------------------------------------------
 
 
 # Call data from WGM
@@ -323,11 +323,11 @@ knitr::kable(
     general = "Table 1 presents an overview of vaccination beliefs and incidence across countries in our sample. Columns 2-5 use data from the Wellcome Global Monitor 2018. Column 2 shows the percentage of respondents who are parents and report having had any of their children ever vaccinated. Columns 3-5 show the percentage of all respondents that either strongly agree or somewhat agree with the statement above each column. All percentages are obtained using national weights. Columns 6-8 use data from the World Health Organization on vaccine incidence. Columns 6-8 report the percentage of infants per country receiving the vaccine indicated in each column.", 
     threeparttable = T)
 
-```
 
-## Table with summary of samples
-
-```{r sampling, fig.width = 6, fig.height = 8}
+#' 
+#' ## Table with summary of samples
+#' 
+## ----sampling, fig.width = 6, fig.height = 8----------------------------------
 
 tab_sampling <- 
   readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
@@ -353,13 +353,13 @@ readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
   kableExtra::column_spec(1, width = "8em") %>%
   kableExtra::column_spec(2, width = "12em")  %>%
   kableExtra::column_spec(3, width = "30em")
-```
 
-## Main Results: Acceptance Rates (disaggregated by group)
-
-### Figure
-
-```{r fig1, fig.width = 7, fig.height = 7}
+#' 
+#' ## Main Results: Acceptance Rates (disaggregated by group)
+#' 
+#' ### Figure
+#' 
+## ----fig1, fig.width = 7, fig.height = 7--------------------------------------
 
 
 # Prep levels
@@ -460,9 +460,9 @@ fig_1 <-
         axis.text.y = element_text(hjust = 0))
 
 fig_1
-```
 
-```{r fig1ages}
+#' 
+## ----fig1ages-----------------------------------------------------------------
 
 # Put them together in a single df. Make estimates "percentages" and round
 
@@ -537,14 +537,14 @@ fig_1_ages <-
         axis.text.y = element_text(hjust = 0))
 
 fig_1_ages
-```
 
-### Invariance to aggregation at country level
-
-Weighting so that each country (rather than each study) has equal weight has only a marginal impact on estimated LMIC average acceptance.
-
-
-```{r}
+#' 
+#' ### Invariance to aggregation at country level
+#' 
+#' Weighting so that each country (rather than each study) has equal weight has only a marginal impact on estimated LMIC average acceptance.
+#' 
+#' 
+## -----------------------------------------------------------------------------
 df_country <- 
   df %>% 
   filter(!is.na(take_vaccine_num)) %>%
@@ -574,10 +574,10 @@ unit_check <-
   
   lapply(tidy) %>% bind_rows(.id = "Unit")
 unit_check %>% kable(digits = 2)
-```
-### Differences in means
 
-```{r analysis}
+#' ### Differences in means
+#' 
+## ----analysis-----------------------------------------------------------------
 
 
 # Analysis of differences in means only LMICs
@@ -652,7 +652,6 @@ diffmeans <-
   dplyr::rename(Estimate = estimate,
          Std.error = std.error,
          P.value = p.value,
-         `P-value` = p.value,
          "Degrees of freedom" = df,
          "Baseline category" = term) %>%
   dplyr::mutate(
@@ -670,7 +669,7 @@ diffmeans <-
                                  "Up to secondary", `Baseline category`)) 
 
 dmeans <- diffmeans %>%
-  filter(Variable != "") %>%
+  filter(Variable!="") %>%
   knitr::kable(
     digits = 2,
     caption =  "Differences in means",
@@ -684,7 +683,7 @@ dmeans <- diffmeans %>%
     threeparttable = T) 
 
 diffmeans %>%
-  filter(Variable != "") %>%
+  filter(Variable!="") %>%
   knitr::kable(
   caption =  "Differences in means",
   booktabs = T, linesep = "", label = "dmeans", digits = 2) %>% 
@@ -695,15 +694,15 @@ diffmeans %>%
     general = "Table 8 shows the results of subgroup mean differences. Subgroup differences were generated considering only LMICs. The differences in means for gender and age do not include the Uganda 1 study, which only included female respondents under the age of 55.",
     threeparttable = T) 
 
-```
 
-### Differences in means: Age with three categories
-
-```{r}
+#' 
+#' ### Differences in means: Age with three categories
+#' 
+## -----------------------------------------------------------------------------
 
 diffmeans <- 
   diffmeans %>%
-  filter(Variable != "Age") %>%
+  filter(Variable!="Age") %>%
   dplyr::mutate(
     Variable = ifelse(`Baseline category` == "age_groups_three25-54", 
                       "Age (25-54)", Variable),
@@ -715,7 +714,7 @@ diffmeans <-
                                  "<25", `Baseline category`))
 
 dmeans <- diffmeans %>%
-  filter(Variable != "") %>%
+  filter(Variable!="") %>%
   knitr::kable(
     digits = 2,
     caption =  "Differences in means",
@@ -729,7 +728,7 @@ dmeans <- diffmeans %>%
     threeparttable = T) 
 
 diffmeans %>%
-  filter(Variable != "") %>%
+  filter(Variable!="") %>%
   knitr::kable(
   caption =  "Differences in means",
   booktabs = T, linesep = "", label = "dmeans", digits = 2) %>% 
@@ -740,17 +739,17 @@ diffmeans %>%
     general = "Table 8 shows the results of subgroup mean differences. Subgroup differences were generated considering only LMICs. The differences in means for gender and age do not include the Uganda 1 study, which only included female respondents under the age of 55.",
     threeparttable = T) 
 
-```
 
-### Differences in means: by study 
-
-```{r}
+#' 
+#' ### Differences in means: by study 
+#' 
+## -----------------------------------------------------------------------------
 country_differences <-
   unique(df$country) %>%
   lapply(function(j){{
     dff <- filter(df, country == j)
     
-    lapply(c("gender", "age_groups_three", "educ_binary"), function(i){
+    lapply(c("gender", "age_groups_binary", "age_groups_three", "educ_binary"), function(i){
       if (length(table(dff[[i]])) < 2)  {
         return(NULL)
       } else {
@@ -760,11 +759,8 @@ country_differences <-
                             se_type = "stata",
                             data = dff) 
           m %>% tidy %>%
-          m %>% 
-            tidy %>%
-            dplyr::select(estimate, std.error, p.value, df, term) %>%
+          dplyr::select(estimate, std.error, p.value, df, term) %>%
           mutate(n = m$nobs)
-            dplyr::mutate(n = m$nobs)
         }}
     ) } %>%
       dplyr::bind_rows() %>% 
@@ -774,11 +770,13 @@ country_differences <-
   dplyr::relocate(country, term) %>%
   dplyr::filter(term != "(Intercept)") %>% 
   dplyr::mutate(significant = p.value <= .05) %>%
-  dplyr::mutate(
-    term = ifelse(term == "age_groups_three25-54", "25-54", term),
-    term = ifelse(term == "age_groups_three55+", "55+", term),
-    term = ifelse(term == "educ_binaryUp to Secondary", "Up to secondary", term),
-    term = ifelse(term == "genderMale", "Male", term))
+  dplyr::mutate(term=ifelse(term=="age_groups_three25-54", "25-54", term),
+                term=ifelse(term=="age_groups_three55+", "55+", term),
+                term=ifelse(term=="educ_binaryUp to Secondary", "Up to secondary", term),
+                term=ifelse(term=="age_groups_binary55+", "55+ (binary measure)", term),
+
+                
+                term=ifelse(term=="genderMale", "Male", term))
 
 country_differences_summary <- 
   country_differences %>% 
@@ -790,52 +788,46 @@ country_differences_summary <-
     "not significant" = sum(!significant),
     n = n()) 
 
-t_country_differences <- country_differences %>%
+t_country_differences1 <- country_differences %>%
+  dplyr::filter(!grepl("55+ (binary measure)", term))%>%
   dplyr::mutate(
-                baseline = ifelse(term == "Male", "Female", NA),
-                baseline = ifelse(term == "Up to secondary", "Secondary +", baseline),
-                baseline = ifelse(is.na(baseline), "<25", baseline),
-                group = ifelse(baseline == "<25", "Age", NA),
-                group = ifelse(baseline == "Secondary +", "Education", group),
-                group = ifelse(baseline == "Female", "Gender", group),
-                estimate = round(estimate, 2),
-                std.error = round(std.error, 2),
-                p.value = round(p.value, 2)) %>%
-  dplyr::select(country, group, baseline, term, everything(), -significant)
+                baseline=ifelse(term=="Male", "Female", NA),
+                baseline=ifelse(term=="Up to secondary", "Secondary +", baseline),
+                baseline=ifelse(is.na(baseline), "<25", baseline),
+                group=ifelse(baseline=="<25", "Age", NA),
+                group=ifelse(baseline=="Secondary +", "Education", group),
+                group=ifelse(baseline=="Female", "Gender", group),
+                estimate=round(estimate, 2),
+                std.error=round(std.error, 2),
+                p.value=round(p.value, 2)) %>%
+  dplyr::select(country, group, baseline, term, everything(), - significant)
 
-t_country <- t_country_differences %>%
+t_country_differences <- t_country_differences1 %>%
   kable(digits = 2, 
-        col.names = c("Country", "Variable", "Baseline category", "Group", "Estimate", "Std. Error", "p.value", "Degrees of freedom"),
-        col.names = c("Country", "Variable", "Baseline category", "Group", "Estimate", "Std. Error", "P-value", "Degrees of freedom", "N Obs"),
+        col.names= c("Country", "Variable", "Baseline category", "Group", "Estimate", "Std. Error", "p.value", "Degrees of freedom"),
         caption = "Differences between groups within studies", 
         booktabs = TRUE, linesep = "", 
         format.args = list(big.mark = ",", scientific = FALSE),
   format = "latex", label = "countrydiff") %>% 
   kableExtra::kable_styling(latex_options = c("scale_down"), font_size = base_font_size - 2, full_width = FALSE) %>% 
-  kableExtra::row_spec(0, bold = TRUE) %>% 
-  kableExtra::column_spec(1, width = "6em") %>% 
-  kableExtra::column_spec(2:3, width = "6em") %>% 
-  kableExtra::column_spec(4, width = "9em")  %>% 
-  kableExtra::column_spec(5:8, width = "6em") %>% 
   kableExtra::footnote(
     general_title = "",
     general = "Table 11 shows differences of means between groups within single studies. Estimates are calculated through OLS and represent the difference in the average acceptance rate between the subgroup in column Group and that in column Baseline category.",
     threeparttable = T)
 
 
-knitr::kable(t_country_differences, 
+knitr::kable(t_country_differences1, 
              digits = 2, caption = "Differences between groups within studies ")
 
 
 knitr::kable(country_differences_summary, 
              digits = 2, caption = "Differences between groups within studies (Summary)")
 
-```
 
-
-### Metaplus analysis
-
-```{r, comment = ""}
+#' 
+#' ### Metaplus analysis
+#' 
+## ---- comment = ""------------------------------------------------------------
 # Metaplus (variance between countries, included in text)
 mp <- metaplus::metaplus(
   yi  = main_results %>% filter(!(group %in% c("USA", "Russia", "All"))) %>% pull(estimate),
@@ -844,11 +836,11 @@ mp_tau =  mp$results[2,1]
 
 mp$results %>% kable(caption = "Metaplus  results")
 
-```
 
-### Generate quantities used in text
-
-```{r}
+#' 
+#' ### Generate quantities used in text
+#' 
+## -----------------------------------------------------------------------------
 
 # Mean of LMICs
 ans_mean <- 
@@ -909,11 +901,11 @@ rus_ans <-
   ans %>%
   dplyr::filter(cat == "All" & group == "Russia") 
 
-```
 
-### Table version of Figure 1
-
-```{r tabfig1}
+#' 
+#' ### Table version of Figure 1
+#' 
+## ----tabfig1------------------------------------------------------------------
 
 # Here we are making "percentages" from the estimates and putting them together with confidence intervals
 # Also we are going from long to wide
@@ -1013,14 +1005,14 @@ all_tables %>%
     general = "Table 4 shows percentage of respondents willing to take the COVID-19 vaccine as plotted in Figure 1. A 95% confidence interval is shown between parentheses",
     threeparttable = T) 
 
-```
 
-## Reasons to take or not to take
-
-### Table: Reasons to take the vaccine.
-
-
-```{r tab2, fig.width = 12}
+#' 
+#' ## Reasons to take or not to take
+#' 
+#' ### Table: Reasons to take the vaccine.
+#' 
+#' 
+## ----tab2, fig.width = 12-----------------------------------------------------
 
 
 #There are idiosyncratic reasons why people would take the vaccine. I recoded them. But we keep only the core, which is common almost in all studies.
@@ -1077,7 +1069,7 @@ tab_reasons_y <-
   kableExtra::column_spec(2:4, width = "4em") %>% 
   kableExtra::footnote(
     general_title = "",
-    general = "Table 4 shows percentage of respondents mentioning reasons why they would take the Covid-19 vaccine. The number of observations and percentage corresponds only to people who would take the vaccine. Respondents in all countries could give more than one reason. A 95% confidence interval is shown between parentheses. Studies India, Pakistan 1 and Pakistan 2 are not included because they either did not include the question or were not properly harmonized with the other studies.",
+    general = "Table 3 shows percentage of respondents mentioning reasons why they would take the Covid-19 vaccine. The number of observations and percentage corresponds only to people who would take the vaccine. Respondents in all countries could give more than one reason. A 95% confidence interval is shown between parentheses. Studies India, Pakistan 1 and Pakistan 2 are not included because they either did not include the question or were not properly harmonized with the other studies.",
     threeparttable = T) 
 
 yes_vacc2 %>%
@@ -1095,12 +1087,12 @@ yes_vacc2 %>%
     general = "Table 2 shows percentage of respondents mentioning reasons why they would take the Covid-19 vaccine. The number of observations and percentage correponds only to people who would take the vaccine. Respondents in all countries could give more than one reason. A 95% confidence interval is shown between parentheses. Studies India, Pakistan 1 and Pakistan 2 are not included because they either did not include the question or were not properly harmonized with the other studies.",
     threeparttable = T) 
 
-```
 
-
-### Calculate numbers used in text for acceptance
-
-```{r analysis_yes, fig.width = 12, fig.height=10}
+#' 
+#' 
+#' ### Calculate numbers used in text for acceptance
+#' 
+## ----analysis_yes, fig.width = 12, fig.height=10------------------------------
 
 # All LMIcs estimate of self protection
 yes_all <- 
@@ -1146,9 +1138,9 @@ yes2_rus <-
   yes_vacc1 %>% 
   dplyr::filter(group != "All" & group == "Russia" & outcome == "yes_vaccine_2") 
 
-```
 
-```{r tab2all, fig.width = 12}
+#' 
+## ----tab2all, fig.width = 12--------------------------------------------------
 
 
 yes_vars <- 
@@ -1227,9 +1219,9 @@ yes_vacc2 %>%
 
   
 
-```
-## Reasons to take by age
-```{r, fig.width = 10, fig.height = 7}
+
+#' ## Reasons to take by age
+## ---- fig.width = 10, fig.height = 7------------------------------------------
 
 yes_vars <- 
   df2 %>% 
@@ -1334,13 +1326,13 @@ yes_vacc_age %>%
     general = "Table 2 shows percentage of respondents mentioning reasons why they would take the Covid-19 vaccine. The number of observations and percentage correponds only to people who would take the vaccine. Respondents in all countries could give more than one reason. A 95% confidence interval is shown between parentheses. Studies India, Pakistan 1 and Pakistan 2 are not included because they either did not include the question or were not properly harmonized with the other studies.",
     threeparttable = T) 
 
-```
 
-## Figure 2: reasons not to take
-
-### Figure
-
-```{r, fig.width = 10, fig.height = 7}
+#' 
+#' ## Figure 2: reasons not to take
+#' 
+#' ### Figure
+#' 
+## ---- fig.width = 10, fig.height = 7------------------------------------------
 
 #Import df with tags (names of categories)
 dictionary <- read_excel("1_input_data/dictionary.xlsx")
@@ -1411,11 +1403,11 @@ fig_2 <-
 
 
 fig_2
-```
 
-### Calculate numbers used in text for refusal
-
-```{r analysis_no}
+#' 
+#' ### Calculate numbers used in text for refusal
+#' 
+## ----analysis_no--------------------------------------------------------------
 
 ## Generate data for analysis of no reasons
 
@@ -1492,11 +1484,11 @@ serious_top <-
                   group != "All") %>% 
   dplyr::arrange(desc(estimate))
 
-```
 
-### Table version
-
-```{r tabfig2}
+#' 
+#' ### Table version
+#' 
+## ----tabfig2------------------------------------------------------------------
 
 no_vacc2 <- 
   no_vacc %>%
@@ -1578,13 +1570,13 @@ no_vacc2 %>%
     general_title = "",
     general = "Table 6 shows percentage of respondents mentioning reasons why they would not take the Covid-19 vaccine. The number of observations and percentage correponds only to people who would NOT take the vaccine. Respondents in all countries could give more than one reason. A 95% confidence interval is shown between parentheses",
     threeparttable = T)
-```
 
-## Figure 3: Trust vaccines
-
-### Figure 
-
-```{r fig3, fig.width = 12,  fig.height = 10}
+#' 
+#' ## Figure 3: Trust vaccines
+#' 
+#' ### Figure 
+#' 
+## ----fig3, fig.width = 12,  fig.height = 10-----------------------------------
 
 #Group together categories
 
@@ -1677,9 +1669,9 @@ fig_hist2 <-
         axis.text.y = element_text(hjust = 0))
 
 fig_hist2
-```
 
-```{r fig3quantities, fig.width = 12,  fig.height = 10}
+#' 
+## ----fig3quantities, fig.width = 12,  fig.height = 10-------------------------
 
 trust <- filter(trust_vacc_together, sub=="Any")
 
@@ -1720,11 +1712,11 @@ trust_gov <-
   dplyr::filter(group != "All" & group!="Rwanda" & tag == "Government or MoH") %>%
   dplyr::arrange(desc(estimate))
 
-```
 
-## Figure broken down by acceptance
-
-```{r fig3categories, fig.width = 12,  fig.height = 10}
+#' 
+#' ## Figure broken down by acceptance
+#' 
+## ----fig3categories, fig.width = 12,  fig.height = 10-------------------------
 
 
 #Plot
@@ -1748,12 +1740,12 @@ fig_hist_categories <-
         axis.text.y = element_text(hjust = 0))
 
 fig_hist_categories
-```
 
-
-### By gender
-
-```{r fig3gender, fig.width = 12,  fig.height = 10}
+#' 
+#' 
+#' ### By gender
+#' 
+## ----fig3gender, fig.width = 12,  fig.height = 10-----------------------------
 
 trust_vacc_gender <-  
   list(
@@ -1818,11 +1810,11 @@ hist_gender <-
 
 hist_gender
 
-```
 
-### Gender difference means
-
-```{r gendif}
+#' 
+#' ### Gender difference means
+#' 
+## ----gendif-------------------------------------------------------------------
 
 differences_means_gen <- 
   lapply(trust_names, function(i) {
@@ -1847,11 +1839,11 @@ differences_means_gen %>%
   knitr::kable(digits = 3, caption = "Differences in means trust actors (BH adjustment)")
 
 
-```
 
-### Table version
-
-```{r tabfig3}
+#' 
+#' ### Table version
+#' 
+## ----tabfig3------------------------------------------------------------------
 
 trust_vacc <- 
   plyr::ldply(
@@ -1947,10 +1939,10 @@ trust_vacc %>%
     general = "Table 7 shows percentage of respondents that mention actors who they would trust the most to help them decide whether to get a COVID-19 vaccine. For all countries the questions was asked regardless if respondent would take a vaccine, would not take it, does not know or does not respond. For India respondents were able to mention more than one actor, for the rest of countries only one actor was allowed. While rows should sum to 100%, rounding makes number slightly above or below. A 95% confidence interval is shown between parentheses.",
     threeparttable = T)
 
-```
 
-
-```{r question1, include=FALSE}
+#' 
+#' 
+## ----question1, include=FALSE-------------------------------------------------
 
 tab_question1 <- 
   readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
@@ -1985,9 +1977,9 @@ readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
     general_title = "",
     general = "Table 11 presents question wording and answer options from answers used in Figure 1 to get estimated vaccine acceptance. Answer options are separated by a semicolon. In India options 'Yes, only for free' and 'Yes, even if I have to pay' are both recoded as 'Yes'. In Pakistan 2, 'Absolutely yes' is recoded as 'Yes', 'Neutral' is recoded as 'Don't know' and 'Absolutely no' is recoded as 'No'. In Russia, 'Yes, if a Russian vaccine will be available' and 'Yes, if an imported vaccine will be available' are both recoded as 'Yes'. In USA 'Definitely yes' and 'Probably yes' are recoded as 'Yes', and 'Probably not' and 'Definitely not' are recoded as 'No'" ,
     threeparttable = T)
-```
 
-```{r question2, include=FALSE}
+#' 
+## ----question2, include=FALSE-------------------------------------------------
 
 tab_question2 <- 
   readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
@@ -2031,9 +2023,9 @@ readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
     general = "Table 12 presents question wording and answer options used in Table 3 to get an estimated percentage of reasons to take the COVID-19 vaccine. Columns 'Protection: self', 'Protection: family' and  'Protection: community' show the answer options that were recoded in each category. Answer options are separated by a semicolon." ,
     threeparttable = T)
 
-```
 
-```{r question3, include=FALSE}
+#' 
+## ----question3, include=FALSE-------------------------------------------------
 
 tab_question3 <- 
   readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
@@ -2091,9 +2083,9 @@ readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
     general_title = "",
     general = "Table 13 presents question wording and answer options used in Figure 2 to get an estimated percentage of reasons not to take the COVID-19 vaccine. Columns 3-10 show the answer options that were recoded in each category. Answer options are separated by a semicolon." ,
     threeparttable = T)
-```
 
-```{r question4, include=FALSE}
+#' 
+## ----question4, include=FALSE-------------------------------------------------
 
 tab_question4 <- 
   readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
@@ -2146,12 +2138,12 @@ readxl::read_excel("1_input_data/studies_info.xlsx", sheet = "sample") %>%
     general = "Table 14 presents question wording and answer options used in Figure 3 to get the percentage of respondents mentioning each actor or instituion that they would trust to decide whether to get the COVID-19 vaccine. Columns 3-8 show the answer options that were recoded in each category. Answer options are separated by a semicolon." ,
     threeparttable = T)
 
-```
 
-
-## Summary stats
-
-```{r tab5, fig.width = 12}
+#' 
+#' 
+#' ## Summary stats
+#' 
+## ----tab5, fig.width = 12-----------------------------------------------------
 # Summary statistics table
 # transform the categorical variables into dummy variables
 df2 %<>% 
@@ -2299,5 +2291,5 @@ knitr::kable(
     general = "This table presents summarys statistics for our data and compares it with estimates from other sources of data. Data for Russia comes from census data from the Statistical Agency. For the USA, we use data from the 2019 American Community Survey. For all other countries, the Wellcome Global Monitor 2018 was used. Statistics for our surveys are not weighted, while estimates from benchmark sources are obtained using sampling weights.") %>%
   kableExtra::column_spec(1:8, width = "5em") 
 
-```
 
+#' 

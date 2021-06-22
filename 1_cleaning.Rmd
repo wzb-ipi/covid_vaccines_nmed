@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 if (!require(pacman)) install.packages("pacman")
 
 pacman::p_load(tidyverse, DT, knitr, lazyeval, labelled, 
-               readxl, kableExtra, estimatr, 
+               readxl, googledrive, kableExtra, estimatr, 
                ggforce, magrittr, RColorBrewer, readstata13, 
                metaplus, sjlabelled, purrr)
 
@@ -170,6 +170,7 @@ ind <-
     gender = HH_sex,
     take_vaccine = vac1) %>%
   dplyr::mutate(
+    w_id=paste0(slum_code, hhid),
     study = "ind_igc",
     educ = ifelse(hhb_hh_head_educs == 1, "More than secondary", NA_character_),
     educ = ifelse(hhb_hh_head_educs == 0, "Less than secondary", educ),
@@ -180,16 +181,29 @@ ind <-
     take_vaccine = recode(take_vaccine, 
                           "Yes, only for free" = "Yes", 
                           "Yes, even if I have to pay" = "Yes")) %>%
-  dplyr::select(
-    study, age, gender, educ, take_vaccine, 
-    starts_with("trust_vaccine_"), weight = pweight, cluster = slum_code) %>%
+  dplyr::select(w_id, survey_date,
+                study, age, gender, educ, take_vaccine, 
+                starts_with("trust_vaccine_"), weight = pweight, cluster = slum_code) %>%
   dplyr::mutate(across(c(starts_with("trust_vaccine"), weight), ~ replace(., is.na(.), 0)))
+
+ind_avg <- ind %>%
+  dplyr::mutate(
+    take_vaccine_num = ifelse(take_vaccine == "Yes", 1, 0),
+    take_vaccine_num = ifelse(is.na(take_vaccine), 0, take_vaccine_num)) %>%
+  group_by(w_id) %>%
+  summarise(mean = mean(take_vaccine_num))
+
+ind <- ind %>%
+  mutate(date=lubridate::mdy(survey_date)) %>%
+  group_by(w_id) %>%
+  slice(which.max(date)) %>%
+  left_join(ind_avg)
 
 moz <-  
   read.dta13("1_country_data/moz/Survey_Data_Maputo__6_Mar_2021_18_33_33.dta", 
              nonint.factors = TRUE) %>%
   dplyr::bind_rows(read.dta13("1_country_data/moz/Survey_Data_Pemba__6_Mar_2021_18_33_35.dta", 
-             nonint.factors = TRUE)) %>%
+                              nonint.factors = TRUE)) %>%
   dplyr::as_tibble() %>% 
   dplyr::mutate(
     cluster = market_sampling,
@@ -394,7 +408,7 @@ npl <-
       ifelse(trust_vaccine == "None of these/Someone else- specify", 1, 0),
     study = "npl_yale") %>%
   dplyr::select(
-    study, age, gender, -educ, take_vaccine, 
+    study, age, gender, -educ, take_vaccine, trust_vaccine, 
     starts_with(c("yes_vaccine", "no_vaccine", "trust_vaccine_")), 
     vaccine_safe, vaccine_effective, weight, cluster = Village_Code, -no_vaccine_8) %>%
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0)))
@@ -451,16 +465,16 @@ pak_2 <-
   dplyr::as_tibble() %>% 
   dplyr::mutate(
     educ = recode(i_0, 
-                "Refused to answer" = NA_character_,
-                "Did not go to school" = "Less than secondary",
-                "Dropped out before Matric" = "Less than secondary",
-                "Matric" = "Secondary",
-                "Intermediate/ F.A/ FS.c" = "More than secondary",
-                "Bachelors" = "More than secondary",
-                "Masters/Mphil/ M.Ed" = "More than secondary",
-                "Phd" = "More than secondary",
-                "Religious Studies" = "Less than secondary",
-                "Vocational training/Diploma/D.A.E" = "More than secondary"),
+                  "Refused to answer" = NA_character_,
+                  "Did not go to school" = "Less than secondary",
+                  "Dropped out before Matric" = "Less than secondary",
+                  "Matric" = "Secondary",
+                  "Intermediate/ F.A/ FS.c" = "More than secondary",
+                  "Bachelors" = "More than secondary",
+                  "Masters/Mphil/ M.Ed" = "More than secondary",
+                  "Phd" = "More than secondary",
+                  "Religious Studies" = "Less than secondary",
+                  "Vocational training/Diploma/D.A.E" = "More than secondary"),
     take_vaccine = recode(s7_10, 
                           "Absolutely yes" = "Yes",
                           "Absolutely no" = "No",
@@ -779,7 +793,7 @@ sle_2 <-
       ifelse(trust_vaccine == "Family", 1, 0),
     trust_vaccine_2 = 
       ifelse(trust_vaccine == "Friends you see and talk to " |
-                             trust_vaccine == "Friends you've made online", 1, 0),
+               trust_vaccine == "Friends you've made online", 1, 0),
     trust_vaccine_3 = 
       ifelse(trust_vaccine == "A religious leader", 1, 0),
     trust_vaccine_4 = 
@@ -982,6 +996,7 @@ df <-
   dplyr::mutate(
     take_vaccine_num = ifelse(take_vaccine == "Yes", 1, 0),
     take_vaccine_num = ifelse(is.na(take_vaccine), 0, take_vaccine_num),
+    take_vaccine_num = ifelse(study=="ind_igc", mean, take_vaccine_num),
     cluster = 
       ifelse(is.na(cluster), NA, 
              paste0(gsub(pattern = " ", replacement = "_", x = tolower(country)), "_", cluster))) %>%

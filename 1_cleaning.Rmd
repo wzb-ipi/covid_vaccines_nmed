@@ -26,13 +26,13 @@ pacman::p_load(tidyverse, DT, knitr, lazyeval, labelled,
 ```{r import_studies_info, include = FALSE}
 # Read in studies file with information by countries especially ids
 
-studies <- read_excel("1_input_data/studies_info.xlsx", sheet = "sample")
+studies <- read_excel("2_input_data/studies_info.xlsx", sheet = "sample")
 ```
 
 ```{r real_data, echo=FALSE, message=FALSE, warning=FALSE}
 
 bfa <- 
-  read.dta13("3_country_data/bfa/BF_vaccine_data.dta")  %>%
+  read.dta13("1_country_data/bfa/BF_vaccine_data.dta")  %>%
   dplyr::as_tibble() %>%
   dplyr::mutate(
     take_vaccine = recode(take_vaccine, 
@@ -98,7 +98,7 @@ bfa <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0))) 
 
 col <-  
-  read.dta13("3_country_data/col/COL_vaccine_data.dta") %>% 
+  read.dta13("1_country_data/col/COL_vaccine_data.dta") %>% 
   dplyr::as_tibble() %>% 
   dplyr::select(-gov_reaction, -market, -wash_hands, -wear_mask, -hh_size, -caseid) %>%
   dplyr::mutate(
@@ -161,7 +161,7 @@ col <-
 
 
 ind <-
-  read.dta13("3_country_data/ind/IGC_vacstudy_blfu12.dta", 
+  read.dta13("1_country_data/ind/IGC_vacstudy_blfu12.dta", 
              nonint.factors = TRUE) %>%
   dplyr::as_tibble() %>% 
   dplyr::filter(!is.na(vac1)) %>% 
@@ -200,9 +200,9 @@ ind <- ind %>%
   left_join(ind_avg)
 
 moz <-  
-  read.dta13("3_country_data/moz/Survey_Data_Maputo__6_Mar_2021_18_33_33.dta", 
+  read.dta13("1_country_data/moz/Survey_Data_Maputo__6_Mar_2021_18_33_33.dta", 
              nonint.factors = TRUE) %>%
-  dplyr::bind_rows(read.dta13("3_country_data/moz/Survey_Data_Pemba__6_Mar_2021_18_33_35.dta", 
+  dplyr::bind_rows(read.dta13("1_country_data/moz/Survey_Data_Pemba__6_Mar_2021_18_33_35.dta", 
                               nonint.factors = TRUE)) %>%
   dplyr::as_tibble() %>% 
   dplyr::mutate(
@@ -262,7 +262,7 @@ moz <-
   mutate(across(c(yes_vaccine_1:no_vaccine_666), ~replace(., is.na(.), 0)))
 
 nga <- 
-  readr::read_csv("3_country_data/nga/Covidonlysheet.csv") %>%
+  readr::read_csv("1_country_data/nga/Covidonlysheet.csv") %>%
   dplyr::rename(
     take_vaccine = covid_takevaccine,
     yes_vaccine_1 = "I want to protect myself from having COVID-19 in the future",
@@ -332,7 +332,7 @@ nga <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0))) 
 
 npl <- 
-  read.dta13("3_country_data/npl/vaccines_nepal.dta") %>%
+  read.dta13("1_country_data/npl/vaccines_nepal.dta") %>%
   dplyr::as_tibble() %>% 
   dplyr::rename(
     take_vaccine = if_vaccine_take,
@@ -414,7 +414,7 @@ npl <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0)))
 
 pak_1 <- 
-  read.dta13("3_country_data/pak_1/Sheikhupura Policing Project_EVA Tracker_Vaccine Subdata_210223.dta") %>%
+  read.dta13("1_country_data/pak_1/Sheikhupura Policing Project_EVA Tracker_Vaccine Subdata_210223.dta") %>%
   dplyr::as_tibble() %>% 
   dplyr::rename(
     educ = i_0,
@@ -460,7 +460,7 @@ pak_1 <-
   dplyr::mutate(across(starts_with("no_vaccine_"), ~replace(., is.na(.), 0)))
 
 pak_2 <- 
-  read.dta13("3_country_data/pak_2/CERP_EVA_Data.dta") %>%
+  read.dta13("1_country_data/pak_2/CERP_EVA_Data.dta") %>%
   filter(resp_province=="Punjab") %>%
   dplyr::as_tibble() %>% 
   dplyr::mutate(
@@ -484,7 +484,7 @@ pak_2 <-
     study, educ, take_vaccine, 
     starts_with(c("yes_vaccine", "no_vaccine", "trust_vaccine_")))
 
-load("3_country_data/rus/russia_vaccine_full.rdata")
+load("1_country_data/rus/russia_vaccine_full.rdata")
 rus <- 
   russia_vaccine %>%
   dplyr::rename(
@@ -540,7 +540,7 @@ rus <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0)))
 
 rwa <- 
-  read.dta13("3_country_data/rwa/RWA_vaccine_data.dta",
+  read.dta13("1_country_data/rwa/RWA_vaccine_data.dta",
              nonint.factors = TRUE, generate.factors = TRUE) %>%
   dplyr::as_tibble() %>% 
   dplyr::mutate(
@@ -633,7 +633,7 @@ rwa <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0)) )
 
 sle_1 <- 
-  read.dta13("3_country_data/sle_1/SLE_vaccine_data.dta",
+  read.dta13("1_country_data/sle_1/SLE_vaccine_data.dta",
              nonint.factors = TRUE) %>%
   as_tibble() %>% 
   dplyr::mutate(
@@ -726,7 +726,7 @@ sle_1 <-
 
 
 sle_2 <-  
-  read.dta13("3_country_data/sle_2/vaccine_subset.dta",
+  read.dta13("1_country_data/sle_2/vaccine_subset.dta",
              nonint.factors = TRUE, generate.factors = TRUE) %>% 
   dplyr::as_tibble() %>% 
   dplyr::rename(
@@ -816,7 +816,7 @@ sle_2 <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0)))
 
 uga_1 <-  
-  read.dta13("3_country_data/uga/IGC_Covid19vaccine_questions_final_clusterID.dta",
+  read.dta13("1_country_data/uga/IGC_Covid19vaccine_questions_final_clusterID.dta",
              nonint.factors = FALSE, generate.factors = TRUE) %>%
   dplyr::as_tibble() %>% 
   dplyr::rename(
@@ -848,7 +848,7 @@ uga_1 <-
   dplyr::mutate(across(c(yes_vaccine_1:no_vaccine_666), ~replace(., is.na(.), 0)))
 
 uga <- 
-  read.dta13("3_country_data/uga_1/20210125_baseline_covid.1.2.3_merged_final.dta") %>% 
+  read.dta13("1_country_data/uga_1/20210125_baseline_covid.1.2.3_merged_final.dta") %>% 
   dplyr::as_tibble() %>% 
   tidyr::separate(resp_id, c("first","second"), sep = "-|\\s", remove = FALSE) %>%
   # Manual correction for age, and manually plugging in missing values
@@ -931,7 +931,7 @@ uga <-
                 cluster, -no_vaccine_8) %>%
   dplyr::mutate(across(c(yes_vaccine_1:no_vaccine_666), ~replace(., is.na(.), 0)))
 
-load("3_country_data/usa/usa_covid_survey.RData")
+load("1_country_data/usa/usa_covid_survey.RData")
 usa <- 
   d %>%
   dplyr::as_tibble() %>% 
@@ -980,7 +980,7 @@ dfs <- list(col, bfa, ind, moz, pak_1, pak_2, sle_2, uga, uga_1, rwa, sle_1, nga
 
 ## Puts cleaned dfs into a single df. All NAs are considered NA (recoded are explicit "Refuse" and "Don't know")
 
-vars <- readxl::read_excel("1_input_data/dictionary.xlsx") %>% pull(outcome)
+vars <- readxl::read_excel("2_input_data/dictionary.xlsx") %>% pull(outcome)
 
 df <- 
   dfs %>% 
@@ -1002,14 +1002,14 @@ df <-
              paste0(gsub(pattern = " ", replacement = "_", x = tolower(country)), "_", cluster))) %>%
   dplyr::select(any_of(vars))
 
-readr::write_csv(df, "2_rep_data/combined.csv")
+readr::write_csv(df, "3_rep_data/combined.csv")
 ```
 
 ```{r wgmdata, echo = FALSE, warning = FALSE}
 
 ## Generates data from WGM
 
-wgmdata <- readr::read_csv("1_input_data/wgm_2018_publiccsv.csv")
+wgmdata <- readr::read_csv("2_input_data/wgm_2018_publiccsv.csv")
 
 # recode the name of countries
 ctries <- list("1" = "USA", "9" = "Pakistan",
@@ -1119,7 +1119,7 @@ table_wgm <-
   left_join(table_wgm)
 
 
-readr::write_csv(table_wgm, "2_rep_data/table_wgm.csv")
+readr::write_csv(table_wgm, "3_rep_data/table_wgm.csv")
 ```
 
 
@@ -1128,15 +1128,15 @@ readr::write_csv(table_wgm, "2_rep_data/table_wgm.csv")
 ##Generates table of WHO coverage estimates
 
 BCG  <- 
-  readxl::read_xls("1_input_data/WHO_coverage_estimates_series.xls",sheet = "BCG") %>%
+  readxl::read_xls("2_input_data/WHO_coverage_estimates_series.xls",sheet = "BCG") %>%
   select(Cname,`2019`) %>% rename(BCG = "2019")
 
 MCV1 <- 
-  readxl::read_xls("1_input_data/WHO_coverage_estimates_series.xls",sheet = "MCV1") %>%
+  readxl::read_xls("2_input_data/WHO_coverage_estimates_series.xls",sheet = "MCV1") %>%
   select(Cname,`2019`) %>% rename(MCV1 = "2019")
 
 DTP1 <- 
-  readxl::read_xls("1_input_data/WHO_coverage_estimates_series.xls",sheet = "DTP1") %>%
+  readxl::read_xls("2_input_data/WHO_coverage_estimates_series.xls",sheet = "DTP1") %>%
   select(Cname,`2019`) %>% rename(DTP1 = "2019")
 
 vacc_cov <- 
@@ -1169,5 +1169,5 @@ vacc_cov$country <-
 vacc_cov$country <- 
   replace(vacc_cov$country, vacc_cov$country == "Russian Federation", "Russia")
 
-readr::write_csv(vacc_cov, "2_rep_data/vacc_cov.csv")
+readr::write_csv(vacc_cov, "3_rep_data/vacc_cov.csv")
 ```

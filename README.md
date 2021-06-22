@@ -1,4 +1,4 @@
-# COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries, and Implications for Messaging
+# COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries
 
 Replication for the paper relies on three files:
 

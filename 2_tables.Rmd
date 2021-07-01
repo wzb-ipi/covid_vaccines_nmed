@@ -7,7 +7,10 @@ output:
     theme: cosmo
     code_folding: hide
     toc: yes
+    toc_float: yes
+    self_contained: yes
   bookdown::html_document2: default
+keywords: vaccine hesitancy
 ---
 
 ```{r setup3, include=FALSE}
@@ -25,10 +28,13 @@ base_font_size <- 12
 
 ```
 
+This replication file and ancillary data and code are hosted at https://github.com/wzb-ipi/covid_vaccines_nmed
 
 # Set up
 
 This code takes cleaned and aggregated data as input. Cleaning and aggregation is done in `1_cleaning.Rmd`.
+
+Aggregated data can be downloaded directly from: https://wzb-ipi.github.io/covid_vaccines_nmed/combined.csv
 
 ## Helper functions
 
@@ -61,13 +67,17 @@ loo_helper <-
            sample_var, 
            loo_n = 1,
            loo_fun = 
-             function(dat) lm_helper(data = dat, 
-                                     formula = take_vaccine_num ~ 1, cluster = cluster,
-                                     weight = weight, se_type = "stata")
+             function(dat) 
+               lm_helper(data = dat, 
+                         formula = take_vaccine_num ~ 1, 
+                         cluster = cluster,
+                         weight = weight, 
+                         se_type = "stata")
   ) {
     
   .var <- data[[sample_var]]
   
+  # Data is recombined and loo_fun applied to each combination 
   data %>% 
     {
       plyr::adply(.data = combn(unique(.var), loo_n), 
@@ -75,6 +85,14 @@ loo_helper <-
                   .fun = function(x) loo_fun(.[!(.var %in% x), ]) )
     }
 }
+
+# Illustration of loo_helper
+# loo_helper(
+#   data = data.frame(country = 1:3, Y = 1:3),
+#   loo_n = 2,
+#   sample_var = "country",
+#   loo_fun = function(dat) mean(dat$Y) 
+# )
 
 # Subgroup analysis : Function to apply analysis function over groups
 
@@ -139,15 +157,20 @@ age_analysis <- function(df, reason, num = "Yes", filter_by=NA){
 
 ```
 
-## Final cleaning and harmonization of weights
+## Data preparation
 
-Groups variables into discrete categories and prepares survey weights.
+Load data:
 
 ```{r df2}
 
 # Call data created in 1_cleaning.Rmd
 df <- readr::read_csv("3_rep_data/combined.csv", guess_max = 30000)
 
+```
+
+Groups variables into discrete categories and prepares survey weights.
+
+```{r}
 # If no cluster information given for a study then individuals are clusters 
 # Ensure cluster ids are distinct across studies
 df <- 
@@ -270,7 +293,7 @@ df %>%
 
 ### Gender, education distribution
 
-```{r, fig.height = 13, fig.width = 6}
+```{r, fig.height = 13, fig.width = 15}
 df %>% 
   select(country, gender, educ) %>%
   gather(category, value, -country) %>%
@@ -279,6 +302,8 @@ df %>%
 ```
 
 # Tables and Figures
+
+The following code produces all figures and tables from the paper as well as cited statistics and supplementary material.
 
 ## Table 2: Vaccine data from WGM, WHO
 
@@ -611,6 +636,7 @@ The main estimates for average LMIC acceptance do not vary strongly if we exclud
 
 ```{r loo_main, fig.width=10, fig.height=7}
 
+# Loo estimates for all LMIC respondents
 loo_estimates <- 
   plyr::ldply(
     .data = list(1,2), 
@@ -621,6 +647,8 @@ loo_estimates <-
         loo_helper(., "country", loo_n = x) %>% 
         dplyr::mutate(m = paste0("Leaving ", x, " out"), tag = "All", var = "All")
     })
+
+# Loo estimates broken down by category (appended to above)
 
 loo_estimates <- 
   plyr::mdply(
@@ -640,6 +668,7 @@ loo_estimates <-
                                       to = c("By gender", "By education", "By age"))) %>%
   dplyr::bind_rows(loo_estimates, .)
 
+# Clean up labels
 loo_estimates %<>% 
   dplyr::mutate(
     var = factor(var, levels = c("All", "By gender", "By education", "By age")),
@@ -698,7 +727,7 @@ fig_hist_loo
 
 
 # Analysis of differences in means only LMICs
-# Notice that Uganda 1 is dropped, because of it does not have reference categories for gender or age
+# Notice that Uganda 1 is dropped, because it does not have reference categories for gender or age
 # Notice that we are using df (and not df2) as data, since it does not include "All"
 
 # Population estimate (clustering on country)
@@ -1142,9 +1171,9 @@ all_tables %>%
 
 ```
 
-## Reasons to take or not to take
+## Reasons
 
-### Table: Reasons to take the vaccine.
+### Table: Reasons to take
 
 
 ```{r tab2, fig.width = 12}
@@ -1355,7 +1384,9 @@ yes_vacc2 %>%
   
 
 ```
-## Reasons to take by age
+
+### Reasons to take (by age)
+
 ```{r, fig.width = 10, fig.height = 7}
 
 yes_vars <- 
@@ -1463,9 +1494,7 @@ yes_vacc_age %>%
 
 ```
 
-## Figure 2: reasons not to take
-
-### Figure
+### Figure 2: reasons not to take
 
 ```{r, fig.width = 10, fig.height = 7}
 
@@ -1717,9 +1746,9 @@ no_vacc2 %>%
     threeparttable = T)
 ```
 
-## Figure 3: Trust vaccines
+## Trust
 
-### Figure 
+### Main figure (Fig 3)
 
 ```{r fig3, fig.width = 12,  fig.height = 10}
 
@@ -1859,7 +1888,7 @@ trust_gov <-
 
 ```
 
-## Figure broken down by acceptance
+### ...by acceptance
 
 ```{r fig3categories, fig.width = 12,  fig.height = 10}
 
@@ -1888,7 +1917,7 @@ fig_hist_categories
 ```
 
 
-### By gender
+### ...by gender
 
 ```{r fig3gender, fig.width = 12,  fig.height = 10}
 
@@ -1986,7 +2015,7 @@ differences_means_gen %>%
 
 ```
 
-### Table version
+### Trusted Sources Table 
 
 ```{r tabfig3}
 

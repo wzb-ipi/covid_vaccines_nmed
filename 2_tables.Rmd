@@ -14,6 +14,7 @@ keywords: vaccine hesitancy
 ---
 
 ```{r setup3, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 if (!require(pacman)) install.packages("pacman")
@@ -51,7 +52,8 @@ study_weighting <- function(data)
     dplyr::mutate(weight = weight/sum(weight)) %>% 
     dplyr::ungroup() 
 
-lm_helper <- function(data,...) {
+lm_helper <- function(data,
+                      ...) {
   data %>% 
     study_weighting() %>% 
     estimatr::lm_robust(data = .,...) %>% 
@@ -62,19 +64,17 @@ lm_helper <- function(data,...) {
 # nests by sample_var performs LOO with loo_n observations out
 # applying loo_fun to each sample
 
-loo_helper <- 
-  function(data, 
-           sample_var, 
-           loo_n = 1,
-           loo_fun = 
-             function(dat) 
-               lm_helper(data = dat, 
-                         formula = take_vaccine_num ~ 1, 
-                         cluster = cluster,
-                         weight = weight, 
-                         se_type = "stata")
-  ) {
-    
+loo_helper <- function(data, 
+                       sample_var, 
+                       loo_n = 1,
+                       loo_fun = 
+                         function(dat) 
+                           lm_helper(data = dat, 
+                                     formula = take_vaccine_num ~ 1, 
+                                     cluster = cluster,
+                                     weight = weight, 
+                                     se_type = "stata")) {
+  
   .var <- data[[sample_var]]
   
   # Data is recombined and loo_fun applied to each combination 
@@ -86,18 +86,19 @@ loo_helper <-
     }
 }
 
-# Illustration of loo_helper
+# # Illustration of loo_helper
 # loo_helper(
 #   data = data.frame(country = 1:3, Y = 1:3),
 #   loo_n = 2,
 #   sample_var = "country",
-#   loo_fun = function(dat) mean(dat$Y) 
+#   loo_fun = function(dat) mean(dat$Y)
 # )
 
 # Subgroup analysis : Function to apply analysis function over groups
 
-grp_analysis <- function(df, y, x)
-  
+grp_analysis <- function(df, 
+                         y, 
+                         x) {
   df %>%
     dplyr::filter(if_all(c(all_of(x), all_of(y), cluster, weight), ~ !is.na(.))) %>%
     dplyr::nest_by(group, get(x)) %>%
@@ -106,13 +107,13 @@ grp_analysis <- function(df, y, x)
                 formula = as.formula(paste0(y, "~ 1")), cluster = cluster,
                 weight = weight, se_type = "stata"), .groups = "drop") %>% 
     dplyr::rename(!!x := "get(x)")
-  
-
+}
 
 # Reasons analysis: Function to apply analysis function over groups
 
-reasons_together <- function(df, reason, num = "Yes")
-  
+reasons_together <- function(df, 
+                             reason, 
+                             num = "Yes") {
   df %>%
     dplyr::filter(take_vaccine %in% num, 
                   if_all(c(all_of(reason), cluster, weight), ~ !is.na(.))) %>%
@@ -122,10 +123,13 @@ reasons_together <- function(df, reason, num = "Yes")
                 formula = as.formula(paste0(reason, "~ 1")), 
                 cluster = cluster,
                 weight = weight, se_type = "stata"), .groups = "drop")
+}
 
 
-reasons_together_subgroup <- function(df, reason, num = "Yes", 
-                                      dem_group = NA, dem_subgroup = NA){
+reasons_together_subgroup <- function(df, 
+                                      reason, num = "Yes", 
+                                      dem_group = NA, 
+                                      dem_subgroup = NA) {
   
   if (dem_group == "gender")
     df <- filter(df, gender %in% dem_subgroup)
@@ -142,9 +146,12 @@ reasons_together_subgroup <- function(df, reason, num = "Yes",
 
 # Age analysis for reasons
 
-age_analysis <- function(df, reason, num = "Yes", filter_by=NA){
+age_analysis <- function(df, 
+                         reason, 
+                         num = "Yes", 
+                         filter_by = NA) {
   df %>%
-    dplyr::filter({{filter_by}}==1)  %>%
+    dplyr::filter({{filter_by}} == 1)  %>%
     dplyr::filter(take_vaccine %in% num, 
                   if_all(c(all_of(reason), cluster, weight), ~ !is.na(.))) %>%
     dplyr::nest_by(group) %>%
@@ -187,11 +194,14 @@ df <-
   dplyr::group_by(study) %>% 
   dplyr::mutate(
          weight_replace = mean(weight, rm.na = TRUE),
-         weight = if_else(is.na(weight), if_else(is.na(weight_replace), 1, weight_replace), weight),
+         weight = if_else(is.na(weight), 
+                          if_else(is.na(weight_replace), 1, weight_replace), 
+                          weight),
          weight = weight/sum(weight)) %>% 
   dplyr::ungroup() %>%
   dplyr::mutate(
-    age_groups = as.character(cut(x = age, breaks = c(-Inf, 18, 30, 45, 60, +Inf), right = F)),
+    age_groups = 
+      as.character(cut(x = age, breaks = c(-Inf, 18, 30, 45, 60, +Inf), right = F)),
     age_groups_binary = ifelse(age >= 55, "55+", NA),
     age_groups_binary = ifelse(age < 55, "<55", age_groups_binary),
     age_less24 = ifelse(age <= 24, 1, 0),
@@ -246,10 +256,10 @@ nas <- df %>% group_by(country) %>%
   summarize(n = n(),
             take_vaccine_na = mean(!is.na(take_vaccine))*100,
             gender_na = mean(!is.na(gender))*100,
-            educ_na= mean(!is.na(educ))*100,
-            age_na= mean(!is.na(age))*100) %>%
+            educ_na = mean(!is.na(educ))*100,
+            age_na = mean(!is.na(age))*100) %>%
   kable(digits = 2, 
-        col.names= c("Country", "N obs", "Take vaccine", "Gender", "Education", "Age"),
+        col.names = c("Country", "N obs", "Take vaccine", "Gender", "Education", "Age"),
         caption = "Observations and missingness patterns", 
         booktabs = TRUE, linesep = "", 
         format.args = list(big.mark = ",", scientific = FALSE),
@@ -262,12 +272,12 @@ nas <- df %>% group_by(country) %>%
 
 df %>% group_by(country) %>%
   summarize(n = n(),
-            take_vaccine_na = mean(!is.na(take_vaccine)) *100,
-            gender_na = mean(is.na(gender))*100,
-            educ_na= mean(is.na(educ))*100,
-            age_na= mean(is.na(age))*100) %>%
+            take_vaccine_na = mean(!is.na(take_vaccine)) * 100,
+            gender_na = mean(is.na(gender)) * 100,
+            educ_na = mean(is.na(educ)) * 100,
+            age_na = mean(is.na(age)) * 100) %>%
   kable(digits = 2, 
-        col.names= c("Country", "N obs", "Take vaccine", "Gender", "Education", "Age"),
+        col.names = c("Country", "N obs", "Take vaccine", "Gender", "Education", "Age"),
         caption = "Observations and missingness patterns.", 
         linesep = "", 
         format.args = list(big.mark = ",", scientific = FALSE),
@@ -384,7 +394,7 @@ knitr::kable(
 
 tab_sampling <- 
   readxl::read_excel("2_input_data/studies_info.xlsx", sheet = "sample") %>%
-  dplyr::select("Study" = "country", "Date"="date",
+  dplyr::select("Study" = "country", "Date" = "date",
                 "Geographic scope", "Sampling methodology", "Survey modality", "Weights") %>%
   knitr::kable(
     caption =  "Summary of studies sampling",
@@ -398,7 +408,7 @@ tab_sampling <-
   kableExtra::landscape()
 
 readxl::read_excel("2_input_data/studies_info.xlsx", sheet = "sample") %>%
-  dplyr::select("Study" = "country", "Date"="date",
+  dplyr::select("Study" = "country", "Date" = "date",
                 "Geographic scope", "Sampling methodology", "Survey modality", "Weights") %>%
   knitr::kable(caption =  "Summary of studies' sampling", linesep = "", format = "html") %>% 
   kableExtra::kable_styling(full_width = FALSE) %>%
@@ -435,9 +445,11 @@ acc_by_gender <- grp_analysis(df2, y = "take_vaccine_num", x = "gender")
 acc_by_educ_binary <- grp_analysis(df2, y = "take_vaccine_num", x = "educ_binary")
 
 # Age (all original categories and binary recoding)
-acc_by_age <- grp_analysis(df2, y = "take_vaccine_num", x = "age_groups_three") %>%
-  dplyr::filter(statistic!=Inf) %>%
-  dplyr::filter(conf.low>0)
+acc_by_age <- 
+  grp_analysis(df2, y = "take_vaccine_num", x = "age_groups_three") %>%
+  dplyr::filter(statistic != Inf) %>%
+  dplyr::filter(conf.low > 0)
+
 acc_by_age_binary <- grp_analysis(df2, y = "take_vaccine_num", x = "age_groups_binary")
 
 
@@ -489,12 +501,13 @@ ans_loo <- ans
 
 #Add a row averaging over only national samples
 
-nationals <- df2 %>%
-  filter(country=="Burkina Faso" |
-           country=="Colombia" |
-           country=="Rwanda" |
-           country=="Sierra Leone 1" |
-           country=="Sierra Leone 2")
+nationals <- 
+  df2 %>%
+  dplyr::filter(country == "Burkina Faso" |
+           country == "Colombia" |
+           country == "Rwanda" |
+           country == "Sierra Leone 1" |
+           country == "Sierra Leone 2")
 
 main_results_n <- 
   nationals %>% 
@@ -513,9 +526,10 @@ acc_by_gender_n <- grp_analysis(nationals, y = "take_vaccine_num", x = "gender")
 acc_by_educ_binary_n <- grp_analysis(nationals, y = "take_vaccine_num", x = "educ_binary")
 
 # Age (all original categories and binary recoding)
-acc_by_age_n <- grp_analysis(nationals, y = "take_vaccine_num", x = "age_groups_three") %>%
-  dplyr::filter(statistic!=Inf) %>%
-  dplyr::filter(conf.low>0)
+acc_by_age_n <- 
+  grp_analysis(nationals, y = "take_vaccine_num", x = "age_groups_three") %>%
+  dplyr::filter(statistic != Inf) %>%
+  dplyr::filter(conf.low > 0)
 
 ans_n <- 
   dplyr::bind_rows(
@@ -524,9 +538,9 @@ ans_n <-
     acc_by_educ_binary_n %>% rename(cat = educ_binary) %>% mutate(var = "By education"),
     acc_by_age_n %>% rename(cat = age_groups_three) %>% mutate(var = "By age")) %>%
   dplyr::mutate(across(c(conf.low, conf.high, estimate), ~ round(. * 100, digits = 1))) %>%
-  filter(group=="All") %>%
-  mutate(group="All LMICs (National samples)",
-         tag="All LMICs (National samples)")  
+  filter(group == "All") %>%
+  mutate(group = "All LMICs (National samples)",
+         tag = "All LMICs (National samples)")  
 
 
 # Prepare df to plot. Important but ugly relevel of factors, happening all over the code
@@ -554,7 +568,9 @@ ans_n %<>%
       factor(x = tag, ordered = TRUE,
              levels = rev(c(sort(unique(tag)[!(unique(tag) %in% special_cases)]), special_cases))))
 
-ans_national <- ans_n %>% filter(group == "All LMICs (National samples)" & cat=="All") 
+ans_national <- 
+  ans_n %>% 
+  dplyr::filter(group == "All LMICs (National samples)" & cat == "All") 
 
 
 #Colour blind palette (available palletes are smaller so we expand it)
@@ -709,7 +725,8 @@ fig_hist_loo <-
     name = "Sample Average", 
     values = c("solid", "11", "dashed")) + 
   scale_x_continuous(n.breaks = 8, name = "estimate") +
-  scale_y_continuous(labels = scales::percent_format(scale = 1, suffix = "", accuracy = 0.1)) +
+  scale_y_continuous(
+    labels = scales::percent_format(scale = 1, suffix = "", accuracy = 0.1)) +
   labs(title = "",
        x = "") +
   guides(color = guide_legend(reverse = TRUE, nrow = 2, keyheight = 1),
@@ -719,6 +736,7 @@ fig_hist_loo <-
   theme(legend.position = "bottom")
 
 fig_hist_loo
+
 ```
 
 ### Differences in means
@@ -1115,8 +1133,8 @@ all_tables_n <-
   dplyr::left_join(gender_table_n) %>%
   dplyr::left_join(educ_table_n) %>% 
   dplyr::left_join(age_table_n) %>%
-  dplyr::filter(group=="All") %>%
-  dplyr::mutate(group="All LMICs (National)")
+  dplyr::filter(group == "All") %>%
+  dplyr::mutate(group = "All LMICs (National)")
 
 all_tables <- 
   main_table %>% 
@@ -1198,7 +1216,9 @@ yes_vacc2 <-
                 conf_int = paste0("(", conf.low, 
                                   ", ", conf.high, ")")) %>%
   dplyr::select(group, estimate, conf_int, outcome, n) %>%
-  tidyr::pivot_wider(names_from = outcome, values_from = c(estimate, conf_int, n), names_sep = "__") %>%
+  tidyr::pivot_wider(names_from = outcome, 
+                     values_from = c(estimate, conf_int, n), 
+                     names_sep = "__") %>%
   tidyr::pivot_longer(cols = c(starts_with("estimate__"), starts_with("conf_int__")),
                       names_to = c("type", ".value"),
                       names_pattern = "(.*)__(.*)") %>%
@@ -1220,11 +1240,12 @@ cnames <- c("Study", "N", "Self", "Family",
 #Table to Latex
 tab_reasons_y <- 
   yes_vacc2 %>%
-  knitr::kable(col.names = cnames,
-      caption = "Reasons to take the vaccine", format = "latex", booktabs = T, 
-      linesep = "", label = "yes", 
-      format.args = list(big.mark = ",", scientific = FALSE), 
-      escape = F, align = "lcccc") %>%
+  knitr::kable(
+    col.names = cnames,
+    caption = "Reasons to take the vaccine", format = "latex", booktabs = T, 
+    linesep = "", label = "yes", 
+    format.args = list(big.mark = ",", scientific = FALSE), 
+    escape = F, align = "lcccc") %>%
   kableExtra::kable_styling(full_width = FALSE, 
                             font_size = base_font_size - 2) %>%
   kableExtra::add_header_above(c(" " = 2, "Protection" = 3), bold = TRUE) %>% 
@@ -1237,10 +1258,12 @@ tab_reasons_y <-
     threeparttable = T) 
 
 yes_vacc2 %>%
-  knitr::kable(col.names = cnames,
-      caption = "\\label{yes}Reasons to take the vaccine", 
-      booktabs = T, linesep = "", 
-      format.args = list(big.mark = ",", scientific = FALSE)) %>% 
+  knitr::kable(
+    col.names = cnames,
+    caption = "\\label{yes}Reasons to take the vaccine", 
+    booktabs = T, linesep = "", 
+    format.args = list(big.mark = ",", scientific = FALSE),
+    align = "lcccc") %>% 
   kableExtra::kable_styling(full_width = FALSE) %>%
   kableExtra::add_header_above(c(" " = 2, "Protection" = 3), bold = TRUE) %>% 
   kableExtra::row_spec(0, bold = TRUE) %>% 
@@ -1328,7 +1351,9 @@ yes_vacc2 <-
                 conf_int = paste0("(", conf.low, 
                                   ", ", conf.high, ")")) %>%
   dplyr::select(group, estimate, conf_int, outcome, n) %>%
-  tidyr::pivot_wider(names_from = outcome, values_from = c(estimate, conf_int, n), names_sep = "__") %>%
+  tidyr::pivot_wider(names_from = outcome, 
+                     values_from = c(estimate, conf_int, n), 
+                     names_sep = "__") %>%
   tidyr::pivot_longer(cols = c(starts_with("estimate__"), starts_with("conf_int__")),
                       names_to = c("type", ".value"),
                       names_pattern = "(.*)__(.*)") %>%
@@ -1396,19 +1421,19 @@ yes_vars <-
 
 ## Generate data for analysis of yes reasons for different age groups
 yes_vacc_age_1 <- 
-  lapply(yes_vars, age_analysis, df = df2, num = "Yes", filter_by=`age_less24`) %>%
+  lapply(yes_vars, age_analysis, df = df2, num = "Yes", filter_by = `age_less24`) %>%
   dplyr::bind_rows() %>%
-  mutate(age="<25")
+  mutate(age = "<25")
 
 yes_vacc_age_2 <- 
-  lapply(yes_vars, age_analysis, df = df2, num = "Yes", filter_by=`age_25_54`) %>%
+  lapply(yes_vars, age_analysis, df = df2, num = "Yes", filter_by = `age_25_54`) %>%
   dplyr::bind_rows() %>%
-  mutate(age="25-54")
+  mutate(age = "25-54")
 
 yes_vacc_age_3 <- 
-  lapply(yes_vars, age_analysis, df = df2, num = "Yes", filter_by=`age_55_more`) %>%
+  lapply(yes_vars, age_analysis, df = df2, num = "Yes", filter_by = `age_55_more`) %>%
   dplyr::bind_rows() %>%
-  mutate(age="55+")
+  mutate(age = "55+")
 
 #Get percentage per yes reason category and make wide table
 yes_vacc_age <- 
@@ -1417,7 +1442,7 @@ yes_vacc_age <-
   dplyr::mutate(estimate = format(estimate, nsmall = 0),
                 conf_int = paste0("(", conf.low, 
                                   ", ", conf.high, ")"),
-                n=as.character(n)) %>%
+                n = as.character(n)) %>%
   dplyr::select(group, estimate, conf_int, outcome, age, n) %>%
   tidyr::pivot_wider(names_from = c(outcome, age), values_from = c(estimate, conf_int, n), names_sep = "__") %>%
   tidyr::pivot_longer(cols = c(starts_with("estimate__"), starts_with("conf_int__"), starts_with("n__")),
@@ -1426,31 +1451,34 @@ yes_vacc_age <-
 
 y1 <- yes_vacc_age %>%
   dplyr::filter(grepl("yes_vaccine_1", type)) %>%
-  mutate(type=ifelse(grepl("estimate", type), "estimate", type),
-         type=ifelse(grepl("conf_int", type), "conf_int", type),
-         type=ifelse(grepl("n__", type), "n", type))
+  dplyr::mutate(type = ifelse(grepl("estimate", type), "estimate", type),
+         type = ifelse(grepl("conf_int", type), "conf_int", type),
+         type = ifelse(grepl("n__", type), "n", type))
 
 
 y2 <- yes_vacc_age %>%
-  dplyr::filter(grepl("yes_vaccine_2", type))%>%
-  mutate(type=ifelse(grepl("estimate", type), "estimate", type),
-         type=ifelse(grepl("conf_int", type), "conf_int", type),
-         type=ifelse(grepl("n__", type), "n", type))
+  dplyr::filter(grepl("yes_vaccine_2", type)) %>%
+  dplyr::mutate(type = ifelse(grepl("estimate", type), "estimate", type),
+         type = ifelse(grepl("conf_int", type), "conf_int", type),
+         type = ifelse(grepl("n__", type), "n", type))
 
 y3 <- yes_vacc_age %>%
-  dplyr::filter(grepl("yes_vaccine_3", type))%>%
-  mutate(type=ifelse(grepl("estimate", type), "estimate", type),
-         type=ifelse(grepl("conf_int", type), "conf_int", type),
-         type=ifelse(grepl("n__", type), "n", type))
+  dplyr::filter(grepl("yes_vaccine_3", type)) %>%
+  dplyr::mutate(type = ifelse(grepl("estimate", type), "estimate", type),
+         type = ifelse(grepl("conf_int", type), "conf_int", type),
+         type = ifelse(grepl("n__", type), "n", type))
 
-yes_vacc_age <- left_join(y1, y2, by=c("group", "type")) %>%
-  left_join(y3, by=c("group", "type")) %>% 
+yes_vacc_age <- 
+  dplyr::left_join(y1, y2, by = c("group", "type")) %>%
+  dplyr::left_join(y3, by = c("group", "type")) %>% 
   dplyr::mutate(
     group = forcats::fct_relevel(as.factor(group), "All", "Russia", "USA", after = Inf)) %>% 
   dplyr::arrange(group) %>% 
-  dplyr::mutate(across(c(group), ~ifelse(type == "conf_int", "Conf. interval", as.character(.))),
-                across(c(group), ~ifelse(type == "n", "n", as.character(.))),
-                group = ifelse(group == "All", "All LMICs", group)) %>% 
+  dplyr::mutate(
+    across(c(group), 
+           ~ifelse(type == "conf_int", "Conf. interval", as.character(.))),
+    across(c(group), ~ifelse(type == "n", "n", as.character(.))),
+    group = ifelse(group == "All", "All LMICs", group)) %>% 
   dplyr::select(-type)
 
 cnames <- c("Study", "<25", "25-54", "55+", "<25", "25-54", "55+", "<25", "25-54", "55+")
@@ -1459,14 +1487,17 @@ cnames <- c("Study", "<25", "25-54", "55+", "<25", "25-54", "55+", "<25", "25-54
 #Table to Latex
 tab_reasons_y_age <- 
   yes_vacc_age %>%
-  knitr::kable(col.names = cnames,
-      caption = "Reasons to take the vaccine- by age groups", format = "latex", booktabs = T, 
-      linesep = "", label = "yes1", 
-      format.args = list(big.mark = ",", scientific = FALSE), 
-      escape = F, align = c("l", rep("c", 9))) %>%
+  knitr::kable(
+    col.names = cnames,
+    caption = "Reasons to take the vaccine- by age groups", 
+    format = "latex", booktabs = T, 
+    linesep = "", label = "yes1", 
+    format.args = list(big.mark = ",", scientific = FALSE), 
+    escape = F, align = c("l", rep("c", 9))) %>%
   kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"),
                             font_size = base_font_size - 2, full_width = FALSE) %>%
-  kableExtra::add_header_above(c(" " = 1, "Self" = 3, "Family" = 3, "Community" = 3), bold = TRUE) %>% 
+  kableExtra::add_header_above(c(" " = 1, "Self" = 3, "Family" = 3, "Community" = 3), 
+                               bold = TRUE) %>% 
   kableExtra::row_spec(0, bold = TRUE) %>% 
   kableExtra::row_spec(seq(from = 3, to = 36, by = 3), hline_after = TRUE) %>%
   kableExtra::column_spec(1, width = "7em") %>% 
@@ -1478,12 +1509,15 @@ tab_reasons_y_age <-
 
 
 yes_vacc_age %>%
-  knitr::kable(col.names = cnames,
-      caption = "\\label{yes1}Reasons to take the vaccine", 
-      booktabs = T, linesep = "", 
-      format.args = list(big.mark = ",", scientific = FALSE)) %>% 
+  knitr::kable(
+    col.names = cnames,
+    caption = "\\label{yes1}Reasons to take the vaccine", 
+    booktabs = T, linesep = "", 
+    format.args = list(big.mark = ",", scientific = FALSE),
+    align = c("l", rep("c", 9))) %>% 
   kableExtra::kable_styling(full_width = FALSE) %>%
-  kableExtra::add_header_above(c(" " = 1, "Self" = 3, "Family" = 3, "Community" = 3), bold = TRUE) %>% 
+  kableExtra::add_header_above(c(" " = 1, "Self" = 3, "Family" = 3, "Community" = 3), 
+                               bold = TRUE) %>% 
   kableExtra::row_spec(0, bold = TRUE) %>% 
   kableExtra::column_spec(1, width = "8em") %>% 
   kableExtra::column_spec(2:10, width = "4em") %>% 
@@ -1525,21 +1559,21 @@ no_vacc <-
   ) %>%
   dplyr::left_join(dictionary, by = "outcome") %>%
   dplyr::mutate(
-    name=ifelse(group!="All", paste0(group, " (n=", n, ")"), "All"),
-    name= gsub(pattern = " \\(", "\\\n\\(", name),
+    name = ifelse(group != "All", paste0(group, " (n=", n, ")"), "All"),
+    name = gsub(pattern = " \\(", "\\\n\\(", name),
     tag = as.factor(tag),
-    tag = 
-      forcats::fct_relevel(tag,  
-                           "Concerned about side effects", 
-                           "Concerned about getting coronavirus from the vaccine", 
-                           "Not concerned about getting seriously ill", 
-                           "Doesn't think vaccines are effective", 
-                           "Doesn't think Coronavirus outbreak is as serious as people say", 
-                           "Doesn't like needles", 
-                           "Allergic to vaccines", 
-                           "Won't have time to get vaccinated", 
-                           "Mentions a conspiracy theory", 
-                           "Other reasons"))
+    tag = forcats::fct_relevel(
+      tag,  
+      "Concerned about side effects", 
+      "Concerned about getting coronavirus from the vaccine", 
+      "Not concerned about getting seriously ill", 
+      "Doesn't think vaccines are effective", 
+      "Doesn't think Coronavirus outbreak is as serious as people say", 
+      "Doesn't like needles", 
+      "Allergic to vaccines", 
+      "Won't have time to get vaccinated", 
+      "Mentions a conspiracy theory", 
+      "Other reasons"))
 
 special_cases <- 
   sort(unique(no_vacc$name)[grep(unique(no_vacc$name), pattern = "All|Russia|USA")])
@@ -1577,6 +1611,7 @@ fig_2 <-
 
 
 fig_2
+
 ```
 
 ### Calculate numbers used in text for refusal
@@ -1670,7 +1705,9 @@ no_vacc2 <-
                 conf_int = paste0("(", format(conf.low, nsmall = 0), 
                                   ", ", format(conf.high, nsmall = 0), ")")) %>%
   dplyr::select(group, estimate, conf_int, outcome, n) %>%
-  tidyr::pivot_wider(names_from = outcome, values_from = c(estimate, conf_int, n), names_sep = "__") %>%
+  tidyr::pivot_wider(names_from = outcome, 
+                     values_from = c(estimate, conf_int, n), 
+                     names_sep = "__") %>%
   tidyr::pivot_longer(cols = c(starts_with("estimate__"), starts_with("conf_int__")),
                       names_to = c("type", ".value"),
                       names_pattern = "(.*)__(.*)") %>% 
@@ -1718,8 +1755,6 @@ tab_fig2 <-
     threeparttable = T)  %>%
   kableExtra::landscape()
 
-
-
 no_vacc2 %>%
   knitr::kable(
     col.names = c("Study", "N", 
@@ -1735,7 +1770,8 @@ no_vacc2 %>%
                   "Other reasons"),
     caption = "\\label{no}Reasons not to take the vaccine", 
     booktabs = T, linesep = "", 
-    format.args = list(big.mark = ",",scientific = FALSE)) %>%
+    format.args = list(big.mark = ",",scientific = FALSE),
+    align = c("l", rep("c", 11))) %>%
   kableExtra::kable_styling(full_width = F) %>%
   kableExtra::row_spec(0, bold = TRUE) %>% 
   kableExtra::column_spec(1:12, width = "7em") %>%
@@ -1744,6 +1780,7 @@ no_vacc2 %>%
     general_title = "",
     general = "Table S5 shows percentage of respondents mentioning reasons why they would not take the Covid-19 vaccine. The number of observations and percentage correponds only to people who would NOT take the vaccine. Respondents in all countries could give more than one reason. A 95% confidence interval is shown between parentheses.",
     threeparttable = T)
+
 ```
 
 ## Trust
@@ -1757,23 +1794,29 @@ no_vacc2 %>%
 df2 %<>% 
   dplyr::mutate(
     trust_recode_1 = ifelse(trust_vaccine_1 == 1 | trust_vaccine_2 == 1, 1, 0),
-    trust_recode_1 = ifelse((country=="Nigeria"| country=="USA") & is.na(trust_recode_1), 0, trust_recode_1),
-    
+    trust_recode_1 = ifelse((country == "Nigeria" | country == "USA") &
+                              is.na(trust_recode_1), 0, trust_recode_1),
     trust_recode_2 = ifelse(trust_vaccine_8 == 1 | trust_vaccine_9 == 1, 1, 0),
-    trust_recode_2 = ifelse((country=="Sierra Leone 2") & is.na(trust_recode_2), 0, trust_recode_2),
-    
+    trust_recode_2 = ifelse((country == "Sierra Leone 2") & 
+                              is.na(trust_recode_2), 0, trust_recode_2),
     trust_recode_3 = ifelse(trust_vaccine_3 == 1 | 
                               trust_vaccine_7 == 1 | 
                               trust_vaccine_4 == 1, 1, 0),
-    trust_recode_3 = ifelse((country=="Nigeria"| country=="USA" | country=="Russia") & is.na(trust_recode_3), 0, trust_recode_3),
-    
+    trust_recode_3 = 
+      ifelse((country == "Nigeria" | country == "USA" | country == "Russia") & 
+               is.na(trust_recode_3), 0, trust_recode_3),
     trust_recode_4 = ifelse(trust_vaccine_666 == 1 | trust_vaccine_other == 1, 1, 0),
-    trust_recode_4 = ifelse((country=="Burkina Faso"| country=="Sierra Leone 2" | country=="Russia") & is.na(trust_recode_4), 0, trust_recode_4),
-    
+    trust_recode_4 = 
+      ifelse((country == "Burkina Faso" | 
+                country == "Sierra Leone 2" | 
+                country == "Russia") & 
+               is.na(trust_recode_4), 0, trust_recode_4),
     trust_recode_5 = ifelse(trust_vaccine_dk == 1 | 
                               trust_vaccine_refuse == 1 | 
                               trust_vaccine_nr == 1, 1, 0),
-    trust_recode_5 = ifelse((country=="Nigeria"| country=="Sierra Leone 2" | country=="USA") & is.na(trust_recode_5), 0, trust_recode_5))
+    trust_recode_5 = 
+      ifelse((country == "Nigeria" | country == "Sierra Leone 2" | country == "USA") &
+               is.na(trust_recode_5), 0, trust_recode_5))
 
 #Recoded groups
 trust_names <- c("trust_recode_1", "trust_recode_2", "trust_recode_3", 
@@ -1825,9 +1868,9 @@ trust_vacc_together <-
 fig_hist2 <- 
   trust_vacc_together %>%
   dplyr::mutate(group = plyr::mapvalues(group, "All", "All LMICs")) %>% 
-  dplyr::filter(sub=="Any") %>% 
+  dplyr::filter(sub == "Any") %>% 
   ggplot(aes(estimate, tag)) + 
-  geom_bar(stat = "identity", position = "dodge", fill="#DDCC77") + 
+  geom_bar(stat = "identity", position = "dodge", fill = "#DDCC77") + 
   facet_wrap(~group, ncol = 2, strip.position = "left")  +
   coord_flip() +
   scale_fill_manual(
@@ -1843,23 +1886,25 @@ fig_hist2 <-
         axis.text.y = element_text(hjust = 0))
 
 fig_hist2
+
 ```
 
 ```{r fig3quantities, fig.width = 12,  fig.height = 10}
 
-trust <- filter(trust_vacc_together, sub=="Any")
+trust <- filter(trust_vacc_together, sub == "Any")
 
 # All LMIcs estimate of trust HW
 
 trust_all <- 
   trust %>% 
-  dplyr::filter(group == "All" & tag=="Health workers") %>%
+  dplyr::filter(group == "All" & tag == "Health workers") %>%
   dplyr::arrange(desc(estimate))
 
 # Top and bottom LMICs countries for trust in Health works
 trust_ <- 
   trust %>% 
-  dplyr::filter(group != "All" & group != "USA" & group != "Russia" & tag == "Health workers") 
+  dplyr::filter(group != "All" & group != "USA" & 
+                  group != "Russia" & tag == "Health workers") 
 
 trust_top <- trust_ %>% dplyr::arrange(desc(estimate))
 
@@ -1870,9 +1915,10 @@ trust_rwa <-
 
 trust_npl <- 
   trust %>% 
-  dplyr::filter(group == "Nepal" & tag=="Famous person, religious leader or traditional healers") %>%
+  dplyr::filter(
+    group == "Nepal" & 
+      tag == "Famous person, religious leader or traditional healers") %>%
   dplyr::arrange(desc(estimate))
-
 
 # Top and bottom LMICs countries for trust in Family and friends
 trust_fam <- 
@@ -1883,7 +1929,7 @@ trust_fam <-
 # Top and bottom LMICs countries for trust in Gov
 trust_gov <- 
   trust %>% 
-  dplyr::filter(group != "All" & group!="Rwanda" & tag == "Government or MoH") %>%
+  dplyr::filter(group != "All" & group != "Rwanda" & tag == "Government or MoH") %>%
   dplyr::arrange(desc(estimate))
 
 ```
@@ -1891,7 +1937,6 @@ trust_gov <-
 ### ...by acceptance
 
 ```{r fig3categories, fig.width = 12,  fig.height = 10}
-
 
 #Plot
 fig_hist_categories <- 
@@ -1914,6 +1959,7 @@ fig_hist_categories <-
         axis.text.y = element_text(hjust = 0))
 
 fig_hist_categories
+
 ```
 
 
@@ -1993,7 +2039,8 @@ hist_gender
 differences_means_gen <- 
   lapply(trust_names, function(i) {
     df2 %>% 
-      dplyr::filter(group != "All" & group != "USA" & group != "Russia" & group != "Uganda 1") %>% 
+      dplyr::filter(group != "All" & group != "USA" & 
+                      group != "Russia" & group != "Uganda 1") %>% 
       estimatr::lm_robust(as.formula(paste(i, "~gender")),
                           fixed_effects = ~country,
                           weight = weight,
@@ -2001,7 +2048,7 @@ differences_means_gen <-
                           se_type = "stata",
                           data = .) %>% 
       tidy %>% 
-      dplyr::select(estimate, std.error, p.value, df, term)%>%
+      dplyr::select(estimate, std.error, p.value, df, term) %>%
       dplyr::mutate(outcome = paste(i))
   }) %>% 
   dplyr::bind_rows(.) %>%
@@ -2044,9 +2091,9 @@ trust_vacc <-
         dplyr::ungroup() %>% 
         dplyr::mutate("Take vaccine?" = take_vac) %>%
         dplyr::select(group, n, type, "Take vaccine?", starts_with("trust_")) %>%
-        dplyr::filter(!(group %in% c("Mozambique", "Pakistan 1", "Pakistan 2", "Uganda 1", "India")))
-    }
-  ) %>% 
+        dplyr::filter(!(group %in% c("Mozambique", "Pakistan 1", 
+                                     "Pakistan 2", "Uganda 1", "India")))
+    }) %>% 
   dplyr::mutate(
     group = as.factor(group),
     group = forcats::fct_relevel(group, "All", "Russia", "USA", after = Inf)) %>% 
@@ -2102,7 +2149,8 @@ trust_vacc %>%
                   "Newspapers, radio \n or online groups", "Other", 
                   "Don't know or Refuse"),
     caption = "COVID-19 Vaccination Decision-making: most trusted source", 
-    format.args = list(big.mark = ",", scientific = FALSE)) %>% 
+    format.args = list(big.mark = ",", scientific = FALSE),
+    align = c("l", rep("c", 9))) %>% 
   kableExtra::kable_styling(full_width = FALSE) %>%
   kableExtra::row_spec(0, bold = TRUE) %>% 
   kableExtra::column_spec(1, width = "7em") %>% 
@@ -2450,8 +2498,6 @@ tab_sum_row <-
     general = "This table presents summarys statistics for our data and compares it with estimates from other sources of data. Data for Russia comes from census data from the Statistical Agency. For the USA, we use data from the 2019 American Community Survey. For all other countries, the Wellcome Global Monitor 2018 was used. Statistics for our surveys are not weighted, while estimates from benchmark sources are obtained using sampling weights.",
     threeparttable = T) %>%
   kableExtra::column_spec(1:8, width = "5em") 
-
-
 
 knitr::kable(
   sum_stat_row,

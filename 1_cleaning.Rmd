@@ -170,7 +170,7 @@ ind <-
     gender = HH_sex,
     take_vaccine = vac1) %>%
   dplyr::mutate(
-    w_id=paste0(slum_code, hhid),
+    w_id = paste0(slum_code, hhid),
     study = "ind_igc",
     educ = ifelse(hhb_hh_head_educs == 1, "More than secondary", NA_character_),
     educ = ifelse(hhb_hh_head_educs == 0, "Less than secondary", educ),
@@ -194,7 +194,7 @@ ind_avg <- ind %>%
   summarise(mean = mean(take_vaccine_num))
 
 ind <- ind %>%
-  mutate(date=lubridate::mdy(survey_date)) %>%
+  mutate(date = lubridate::mdy(survey_date)) %>%
   group_by(w_id) %>%
   slice(which.max(date)) %>%
   left_join(ind_avg)
@@ -461,7 +461,7 @@ pak_1 <-
 
 pak_2 <- 
   read.dta13("1_country_data/pak_2/CERP_EVA_Data.dta") %>%
-  filter(resp_province=="Punjab") %>%
+  filter(resp_province == "Punjab") %>%
   dplyr::as_tibble() %>% 
   dplyr::mutate(
     educ = recode(i_0, 
@@ -505,7 +505,8 @@ rus <-
     no_vaccine_666 = D18vaccineno_16,
     weight = wgt) %>%
   dplyr::mutate(
-    take_vaccine = ifelse(D16takevaccine_1 == 1 | D16takevaccine_2 == 1, "Yes",  NA_character_),
+    take_vaccine = ifelse(D16takevaccine_1 == 1 | D16takevaccine_2 == 1, 
+                          "Yes",  NA_character_),
     take_vaccine = ifelse(D16takevaccine_3 == 1, "No",  take_vaccine),
     take_vaccine = ifelse(D16takevaccine_999 == 1, "DK", take_vaccine),
     yes_vaccine_666 = ifelse(D17vaccineyes_6 == 1, 1, yes_vaccine_666),
@@ -596,7 +597,8 @@ rwa <-
     trust_vaccine_1 = 
       ifelse(trust_vaccine == "Family members", 1, 0),
     trust_vaccine_2 = 
-      ifelse(trust_vaccine == "Friends you see and talk to" | trust_vaccine == "Friends you’ve made online", 1, 0),
+      ifelse(trust_vaccine == "Friends you see and talk to" | 
+               trust_vaccine == "Friends you’ve made online", 1, 0),
     trust_vaccine_3 = 
       ifelse(trust_vaccine == "Religious leaders", 1, 0),
     trust_vaccine_4 = 
@@ -633,9 +635,10 @@ rwa <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0)) )
 
 sle_1 <- 
-  read.dta13("1_country_data/sle_1/SLE_vaccine_data.dta",
-             nonint.factors = TRUE) %>%
-  as_tibble() %>% 
+  readstata13::read.dta13(
+    file = "1_country_data/sle_1/SLE_vaccine_data.dta",
+    nonint.factors = TRUE) %>%
+  dplyr::as_tibble() %>% 
   dplyr::mutate(
     yes_vaccine_1 = as_numeric(yes_vaccine_1, start.at = 0),
     yes_vaccine_2 = as_numeric(yes_vaccine_2, start.at = 0),
@@ -726,8 +729,9 @@ sle_1 <-
 
 
 sle_2 <-  
-  read.dta13("1_country_data/sle_2/vaccine_subset.dta",
-             nonint.factors = TRUE, generate.factors = TRUE) %>% 
+  readstata13::read.dta13(
+    file = "1_country_data/sle_2/vaccine_subset.dta",
+    nonint.factors = TRUE, generate.factors = TRUE) %>% 
   dplyr::as_tibble() %>% 
   dplyr::rename(
     trust_vaccine = vaccine_trust,
@@ -798,9 +802,9 @@ sle_2 <-
       ifelse(trust_vaccine == "A religious leader", 1, 0),
     trust_vaccine_4 = 
       ifelse(trust_vaccine == "A famous person (specify)", 1, 0),
-    trust_vaccine_5 = 
-      ifelse(trust_vaccine == "A doctor, nurse or other staff at a community health clinic" |
-               trust_vaccine == "A country medical staff", 1, 0),
+    trust_vaccine_5 = ifelse(
+      trust_vaccine == "A doctor, nurse or other staff at a community health clinic" |
+        trust_vaccine == "A country medical staff", 1, 0),
     trust_vaccine_7 = 
       ifelse(trust_vaccine == "A traditional healer", 1, 0),
     trust_vaccine_9 = 
@@ -816,8 +820,9 @@ sle_2 <-
   dplyr::mutate(across(c(yes_vaccine_1:trust_vaccine_666), ~replace(., is.na(.), 0)))
 
 uga_1 <-  
-  read.dta13("1_country_data/uga/IGC_Covid19vaccine_questions_final_clusterID.dta",
-             nonint.factors = FALSE, generate.factors = TRUE) %>%
+  readstata13::read.dta13(
+    file = "1_country_data/uga/IGC_Covid19vaccine_questions_final_clusterID.dta",
+    nonint.factors = FALSE, generate.factors = TRUE) %>%
   dplyr::as_tibble() %>% 
   dplyr::rename(
     take_vaccine = vacc_yn,
@@ -950,7 +955,8 @@ usa <-
     no_vaccine_4 = ifelse(WZB_no_vaccine_3 == 1, 1, 0),
     no_vaccine_9 = ifelse(WZB_no_vaccine_conspiracy == 1, 1, 0),
     no_vaccine_666 = 
-      ifelse(WZB_no_vaccine_4 == 1 | WZB_no_vaccine_text_code %in% c("2", "5", "11", "3, 11", "888"),1,0),
+      ifelse(WZB_no_vaccine_4 == 1 | 
+               WZB_no_vaccine_text_code %in% c("2", "5", "11", "3, 11", "888"), 1, 0),
     trust_vaccine_1 = ifelse(WZB_trust_vaccine == 1, 1, 0),
     trust_vaccine_3 = ifelse(WZB_trust_vaccine == 8, 1, 0),
     trust_vaccine_5 = ifelse(WZB_trust_vaccine == 2 , 1, 0),
@@ -996,7 +1002,7 @@ df <-
   dplyr::mutate(
     take_vaccine_num = ifelse(take_vaccine == "Yes", 1, 0),
     take_vaccine_num = ifelse(is.na(take_vaccine), 0, take_vaccine_num),
-    take_vaccine_num = ifelse(study=="ind_igc", mean, take_vaccine_num),
+    take_vaccine_num = ifelse(study == "ind_igc", mean, take_vaccine_num),
     cluster = 
       ifelse(is.na(cluster), NA, 
              paste0(gsub(pattern = " ", replacement = "_", x = tolower(country)), "_", cluster))) %>%
@@ -1120,6 +1126,7 @@ table_wgm <-
 
 
 readr::write_csv(table_wgm, "3_rep_data/table_wgm.csv")
+
 ```
 
 
@@ -1170,4 +1177,5 @@ vacc_cov$country <-
   replace(vacc_cov$country, vacc_cov$country == "Russian Federation", "Russia")
 
 readr::write_csv(vacc_cov, "3_rep_data/vacc_cov.csv")
+
 ```

@@ -693,18 +693,21 @@ loo_estimates %<>%
       levels = rev(c("Female", "Male", "Up to Secondary", 
                        "> Secondary", "<25", "25-54", "55+", "All")),
       labels = rev(c("Female", "Male", "Up to Secondary", 
-                     "More than Secondary", "$< 25$", "$25-54$", "$55 +$", "All")))
+                     "More than Secondary", "<25 yr", "25-54 yr", "55+ yr", "All")))
   ) %>% 
   dplyr::select(var, m, tag, estimate)
 
 safe_colorblind_palette <- c("#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", 
-                             "#44AA99", "#999933", "#882255", "#661100", "#6699CC", "#888888", 
-                             "#88CCEE")
+                             "#44AA99", "#999933", "#882255", "#661100", "#6699CC",
+                             "#888888", "#88CCEE")
 
 ans_loo %<>% 
   dplyr::filter(group %in% c("All", "USA", "Russia")) %>% 
-  dplyr::mutate(group = plyr::mapvalues(group, from = "All", to = "All LMIC"),
-                tag = cat)
+  dplyr::mutate(
+    group = plyr::mapvalues(group, from = "All", to = "All LMIC"),
+    cat = plyr::mapvalues(cat, from = c("$< 25$", "$25-54$", "$55 +$"),
+                          to = c("<25 yr", "25-54 yr", "55+ yr")),
+    tag = cat)
 
 fig_hist_loo <- 
   loo_estimates %>%

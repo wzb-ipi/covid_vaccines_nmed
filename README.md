@@ -4,7 +4,7 @@ Replication for the paper relies on three files:
 
 `paper.Rmd` compiles the paper in a PDF `paper.pdf`. It calls some or all of:
 
-`1_cleaning.Rmd` cleans and prepares data for analysis (requires raw country files).
+`1_cleaning.Rmd` cleans and prepares data for analysis (not called on public repo as it requires raw country files).
 
 `2_tables.Rmd` creates figures and tables included in the paper and other diagnostics.
 

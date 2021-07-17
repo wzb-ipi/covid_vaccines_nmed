@@ -1,6 +1,6 @@
 ---
 title: 'COVID-19 Vaccine Acceptance and Hesitancy in Low and Middle Income Countries: Replication Code'
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "1 July 2021"
 output:
   html_document:
     number_sections: yes
